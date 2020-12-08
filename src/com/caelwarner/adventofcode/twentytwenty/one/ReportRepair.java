@@ -1,4 +1,4 @@
-package com.caelwarner.twentytwenty.one;
+package com.caelwarner.adventofcode.twentytwenty.one;
 
 import com.caelwarner.util.Read;
 
