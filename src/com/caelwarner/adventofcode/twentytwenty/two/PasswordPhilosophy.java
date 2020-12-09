@@ -2,17 +2,17 @@ package com.caelwarner.adventofcode.twentytwenty.two;
 
 import com.caelwarner.util.Read;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class PasswordPhilosophy {
 
     public static void main(String[] args) {
-        ArrayList<String> input = Read.asStringArray("twentytwenty/two/input.txt");
+        List<String> input = Read.asStringArray("twentytwenty/two/input.txt");
 
         System.out.println(checkIndexPasswords(input));
     }
 
-    private static int checkCountPasswords(ArrayList<String> input) {
+    private static int checkCountPasswords(List<String> input) {
         int count = 0;
 
         for (String line : input) {
@@ -32,7 +32,7 @@ public class PasswordPhilosophy {
         return count;
     }
 
-    private static int checkIndexPasswords(ArrayList<String> input) {
+    private static int checkIndexPasswords(List<String> input) {
         int count = 0;
 
         for (String line : input) {

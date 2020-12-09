@@ -2,17 +2,17 @@ package com.caelwarner.adventofcode.twentytwenty.one;
 
 import com.caelwarner.util.Read;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class ReportRepair {
 
     public static void main(String[] args) {
-        ArrayList<Integer> input = Read.asIntArray("twentytwenty/one/input.txt");
+        List<Integer> input = Read.asIntArray("twentytwenty/one/input.txt");
 
         System.out.println(findThreeSum(input));
     }
 
-    private static int findTwoSum(ArrayList<Integer> input) {
+    private static int findTwoSum(List<Integer> input) {
         for (int number1 : input) {
             for (int number2 : input) {
                 if ((number1 + number2) == 2020) {
@@ -24,7 +24,7 @@ public class ReportRepair {
         return 0;
     }
 
-    private static int findThreeSum(ArrayList<Integer> input) {
+    private static int findThreeSum(List<Integer> input) {
         for (int number1 : input) {
             for (int number2: input) {
                 for (int number3 : input) {

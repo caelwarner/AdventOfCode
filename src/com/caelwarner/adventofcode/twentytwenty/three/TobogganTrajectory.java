@@ -2,17 +2,17 @@ package com.caelwarner.adventofcode.twentytwenty.three;
 
 import com.caelwarner.util.Read;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class TobogganTrajectory {
 
     public static void main(String[] args) {
-        ArrayList<String> input = Read.asStringArray("twentytwenty/three/input.txt");
+        List<String> input = Read.asStringArray("twentytwenty/three/input.txt");
 
         System.out.println(checkMultipleTrajectorys(input));
     }
 
-    private static int checkTrajectory(ArrayList<String> input, int yAmount, int xAmount) {
+    private static int checkTrajectory(List<String> input, int yAmount, int xAmount) {
         char[][] map = new char[input.size()][input.get(0).length()];
         char tree = "#".charAt(0);
         int count = 0;
@@ -36,7 +36,7 @@ public class TobogganTrajectory {
         return count;
     }
 
-    private static long checkMultipleTrajectorys(ArrayList<String> input) {
+    private static long checkMultipleTrajectorys(List<String> input) {
         int[] yAmounts = {1, 1, 1, 1, 2};
         int[] xAmounts = {1, 3, 5, 7, 1};
         long count = 1;

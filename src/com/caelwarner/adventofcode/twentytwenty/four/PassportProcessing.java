@@ -10,15 +10,15 @@ import java.util.List;
 public class PassportProcessing {
 
     public static void main(String[] args) {
-        ArrayList<String> input = Read.asStringArray("adventofcode/twentytwenty/four/input.txt");
+        List<String> input = Read.asStringArray("adventofcode/twentytwenty/four/input.txt");
 
         System.out.println(processPassportsAdvanced(input));
     }
 
-    private static int processPassports(ArrayList<String> input) {
+    private static int processPassports(List<String> input) {
         int count = 0;
 
-        ArrayList<String> passports = generatePassports(input);
+        List<String> passports = generatePassports(input);
 
         for (String currentPassport : passports) {
             String[] passportProperties = currentPassport.split(" ");
@@ -36,10 +36,10 @@ public class PassportProcessing {
         return count;
     }
 
-    private static int processPassportsAdvanced(ArrayList<String> input) {
+    private static int processPassportsAdvanced(List<String> input) {
         int count = 0;
 
-        ArrayList<String> passports = generatePassports(input);
+        List<String> passports = generatePassports(input);
 
         for (String currentPassport : passports) {
             String[] passportProperties = currentPassport.split(" ");
@@ -63,16 +63,17 @@ public class PassportProcessing {
         return count;
     }
 
-    private static ArrayList<String> generatePassports(ArrayList<String> input) {
-        ArrayList<String> passports = new ArrayList<>();
-        String passport = "";
+    private static List<String> generatePassports(List<String> input) {
+        List<String> passports = new ArrayList<String>() {
+        };
+        StringBuilder passport = new StringBuilder();
 
         for (String line : input) {
-            passport += line + " ";
+            passport.append(line).append(" ");
 
             if (line.equals("")) {
-                passports.add(passport);
-                passport = "";
+                passports.add(passport.toString());
+                passport = new StringBuilder();
             }
         }
 
