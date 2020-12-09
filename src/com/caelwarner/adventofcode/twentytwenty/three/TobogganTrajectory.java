@@ -3,12 +3,11 @@ package com.caelwarner.adventofcode.twentytwenty.three;
 import com.caelwarner.util.Read;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class TobogganTrajectory {
 
     public static void main(String[] args) {
-        ArrayList<String> input = Read.readToStringArrayList("twentytwenty/three/input.txt");
+        ArrayList<String> input = Read.asStringArray("twentytwenty/three/input.txt");
 
         System.out.println(checkMultipleTrajectorys(input));
     }

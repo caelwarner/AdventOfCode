@@ -3,36 +3,55 @@ package com.caelwarner.adventofcode.twentytwenty.five;
 import com.caelwarner.util.Read;
 
 import java.util.ArrayList;
+import java.util.stream.Stream;
 
 public class BinaryBoarding {
 
     public static void main(String[] args) {
-        ArrayList<String> input = Read.readToStringArrayList("twentytwenty/five/input.txt");
+        ArrayList<String> input = Read.asStringArray("adventofcode/twentytwenty/five/input.txt");
 
-        System.out.println(highestSeatID(input));
+        System.out.println(findMissingSeatID(input));
     }
 
-    private static int highestSeatID(ArrayList<String> input) {
+    private static int calculateHighestSeatID(ArrayList<String> input) {
+        int highestSeat = 0;
 
+        for (String seat : input) {
+            int seatId = calculateSeatID(seat);
 
-        return 0;
+            if (seatId > highestSeat) highestSeat = seatId;
+        }
+
+        return highestSeat;
     }
 
-    private static int calculateSeatID(String input) {
-        int rowMin = 1;
-        int rowMax = 128;
-        int colMin = 1;
-        int colMax = 8;
+    private static long findMissingSeatID(ArrayList<String> input) {
+        int missing = 0;
 
-        for (char character : input.toCharArray()) {
-            if (character == "F".charAt(0)) {
-                rowMax /= 2;
-            } else if (character == "B".charAt(0)) {
-                rowMin = rowMax / 2;
+        int[] seatIDs = new int[input.size()];
+        int[] register = new int[input.size() * 2];
+
+        for (int i = 0; i < input.size(); i++) {
+            seatIDs[i] = calculateSeatID(input.get(i));
+        }
+
+        for (int i : seatIDs) {
+            register[i] = 1;
+        }
+
+        for (int i = 1; i < register.length; i++) {
+            if (register[i] == 0) {
+                if (register[i - 1] == 1 && register[i + 1] == 1) missing = i;
             }
         }
 
-        return 0;
+        return missing;
+    }
+
+    private static int calculateSeatID(String input) {
+        input = input.replaceAll("[LF]", "0").replaceAll("[RB]", "1");
+
+        return Integer.parseInt(input, 2);
     }
 
 }
