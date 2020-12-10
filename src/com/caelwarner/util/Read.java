@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Read {
@@ -28,21 +29,18 @@ public class Read {
     }
 
     public static String asString(String path) {
-        StringBuilder output = new StringBuilder();
+        String output = "";
 
         try {
             File file = new File("src/com/caelwarner/" + path);
             BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
 
-            while (bufferedReader.ready()) {
-                output.append(bufferedReader.readLine()).append("\n");
-            }
-
+            output = bufferedReader.lines().collect(Collectors.joining("\n"));
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return output.toString();
+        return output;
     }
 
     public static List<Integer> asIntArray(String path) {
@@ -54,6 +52,24 @@ public class Read {
 
             while (bufferedReader.ready()) {
                 output.add(Integer.valueOf(bufferedReader.readLine()));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return output;
+    }
+
+    public static List<Long> asLongArray(String path) {
+        List<Long> output = new ArrayList<>();
+
+        try {
+            File file = new File("src/com/caelwarner/" + path);
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+
+            while (bufferedReader.ready()) {
+                output.add(Long.parseLong(bufferedReader.readLine()));
             }
 
         } catch (Exception e) {

@@ -16,15 +16,15 @@ public class HandheldHalting {
     public static void main(String[] args) {
         List<String> input = Read.asStringArray("adventofcode/twentytwenty/eight/input.txt");
 
-        System.out.println(findBrokenInstruction(input));
+        System.out.println(runCode(input));
     }
 
     private static int runCode(List<String> input) {
         while (!readLines.contains(currentLine)) {
-//            if (currentLine == input.size()) {
-//                System.out.println("found");
-//                return accumulator;
-//            }
+            if (currentLine == input.size()) {
+                System.out.println("found");
+                return accumulator;
+            }
 
             readLines.add(currentLine);
             parseLine(input.get(currentLine).split(" "));
@@ -38,6 +38,7 @@ public class HandheldHalting {
         for (int i = 0; i < 86; i++) {
             changedLine = false;
             accumulator = 0;
+            currentLine = 0;
             readLines.clear();
 
             System.out.println(runCode(input));
@@ -52,15 +53,24 @@ public class HandheldHalting {
                 accumulator += Integer.parseInt(line[1]);
                 break;
             case "jmp":
+//                if (!changedLine && !changedLines.contains(currentLine)) {
+//                    changedLines.add(currentLine);
+//                    System.out.println(changedLines);
+//                    changedLine = true;
+//
+//                    break;
+//                }
+
                 currentLine += Integer.parseInt(line[1]) - 1;
                 break;
             case "nop":
-                if (!changedLine && !changedLines.contains(currentLine)) {
-                    currentLine += Integer.parseInt(line[1]) - 1;
-                    System.out.println("ahh");
-                    changedLines.add(currentLine);
-                    changedLine = true;
-                }
+//                if (!changedLine && !changedLines.contains(currentLine)) {
+//                    changedLines.add(currentLine);
+//                    System.out.println(changedLines);
+//                    changedLine = true;
+//
+//                    currentLine += Integer.parseInt(line[1]) - 1;
+//                }
                 break;
             default:
                 break;
