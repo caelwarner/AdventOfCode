@@ -4,70 +4,131 @@ import com.caelwarner.util.Read;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class SeatingSystem {
 
-    public static void main(String[] args) {
-        List<String> input = Read.asStringArray("adventofcode/twentytwenty/eleven/input.txt");
+    private static final char occupiedSeat = "#".charAt(0);
+    private static final char emptySeat = "L".charAt(0);
+    private static final char floor = ".".charAt(0);
 
-        System.out.println(countOccupiedSeats(input));
+    public static void main(String[] args) {
+        List<List<Character>> input = Read.as2DCharacterArray("adventofcode/twentytwenty/eleven/input.txt");
+
+        char[][] charInput = input.stream()
+                .map(a -> a.stream()
+                        .map(Objects::toString)
+                        .collect(Collectors.joining())
+                        .toCharArray())
+                .toArray(char[][]::new);
+
+        System.out.println(findOccupiedSeats(charInput));
     }
 
-    private static int countOccupiedSeats(List<String> input) {
-        char[][] map = new char[input.size() + 2][input.get(0).length() + 2];
-
-        char floor = ".".charAt(0);
-        char seat = "L".charAt(0);
-        char occupied = "#".charAt(0);
-
-        for (int i = 1; i < map.length - 1; i++) {
-            
-            map[i] = input.get(i).toCharArray();
-        }
-
-        char[][] mapMutable = Arrays.copyOf(map, map.length);
+    private static int findOccupiedSeats(char[][] input) {
+        char[][] nextRound = Arrays.stream(input).map(char[]::clone).toArray(char[][]::new);
+        char[][] prevRound;
 
         do {
-            map = Arrays.copyOf(mapMutable, mapMutable.length);
+            prevRound = Arrays.stream(nextRound).map(char[]::clone).toArray(char[][]::new);
 
-            for (int y = 1; y < map.length - 1; y++) {
-                for (int x = 1; x < map[y].length - 1; x++) {
-                    if (map[y][x] == seat) {
+            for (int y = 0; y < prevRound.length; y++) {
+                for (int x = 0; x < prevRound[y].length; x++) {
+                    if (nextRound[y][x] == floor) {
+                        continue;
+                    }
 
-                        checkForEmptySeat:
-                        for (int yOffset = -1; yOffset < 2; yOffset++) {
-                            for (int xOffset = -1; xOffset < 2; xOffset++) {
-                                if (map[y + yOffset][x + xOffset] != seat || map[y + yOffset][x + xOffset] != floor) {
-                                    break checkForEmptySeat;
-                                }
+                    int nearbyOccupiedSeats = getLineOfSightOccupiedSeats(prevRound, x, y);
 
-                                mapMutable[y][x] = occupied;
-                            }
-                        }
+                    if (nearbyOccupiedSeats == 0) {
+                        nextRound[y][x] = occupiedSeat;
 
-                    } else if (map[y][x] == occupied) {
-
-                        int occupiedCount = 0;
-
-                        for (int yOffset = -1; yOffset < 2; yOffset++) {
-                            for (int xOffset = -1; xOffset < 2; xOffset++) {
-                                if (map[y + yOffset][x + xOffset] == occupied) {
-                                    occupiedCount++;
-                                }
-
-                                if (occupiedCount == 4) {
-                                    mapMutable[y][x] = seat;
-                                }
-                            }
-                        }
+                    } else if (nearbyOccupiedSeats >= 5) {
+                        nextRound[y][x] = emptySeat;
                     }
                 }
             }
-        } while (!Arrays.equals(map, mapMutable));
 
-        System.out.println("thats cool");
+        } while (!equals(prevRound, nextRound));
 
-        return 0;
+        int occupiedSeats = 0;
+
+        for (char[] row : prevRound) {
+            for (char c : row) {
+                if (c == occupiedSeat)
+                    occupiedSeats++;
+            }
+        }
+
+        return occupiedSeats;
+    }
+
+    private static int getLineOfSightOccupiedSeats(char[][] input, int x, int y) {
+        int occupiedSeats = 0;
+
+        for (int yOffset = -1; yOffset <= 1; yOffset++) {
+            for (int xOffset = -1; xOffset <= 1; xOffset++) {
+                if (yOffset == 0 && xOffset == 0) {
+                    continue;
+                }
+
+                int multiplier = 1;
+
+                try {
+                    while (input[y + (yOffset * multiplier)][x + (xOffset * multiplier)] == floor) {
+                        multiplier++;
+                    }
+
+                    if (input[y + (yOffset * multiplier)][x + (xOffset * multiplier)] == occupiedSeat) {
+                        occupiedSeats++;
+                    }
+
+                } catch (IndexOutOfBoundsException ignored) {}
+            }
+        }
+
+        return occupiedSeats;
+    }
+
+    private static int getNearbyOccupiedSeats(char[][] input, int x, int y) {
+        int occupiedSeats = 0;
+
+        for (int yOffset = -1; yOffset <= 1; yOffset++) {
+            for (int xOffset = -1; xOffset <= 1; xOffset++) {
+
+                if (yOffset == 0 && xOffset == 0)
+                    continue;
+
+                try {
+                    if (input[y + yOffset][x + xOffset] == occupiedSeat)
+                        occupiedSeats++;
+
+                } catch (IndexOutOfBoundsException ignored) {}
+            }
+        }
+
+        return occupiedSeats;
+    }
+
+    private static boolean equals(char[][] a1, char[][] a2) {
+        if (a1 == null || a2 == null) {
+            return false;
+        }
+
+        if (a1.length != a2.length) {
+            return false;
+        }
+
+        for (int row = 0; row < a1.length; row++) {
+            for (int column = 0; column < a1[row].length; column++) {
+                if (a1[row][column] != a2[row][column]) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
 }

@@ -3,6 +3,7 @@ package com.caelwarner.util;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,8 +22,28 @@ public class Read {
                 output.add(bufferedReader.readLine());
             }
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
+
+        return output;
+    }
+
+    public static List<List<Character>> as2DCharacterArray(String path) {
+        List<List<Character>> output = new ArrayList<>();
+
+        try {
+            File file = new File("src/com/caelwarner/" + path);
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+
+            output = bufferedReader.lines()
+                    .map(line -> line.chars()
+                            .mapToObj(c -> (char) c)
+                            .collect(Collectors.toList()))
+                    .collect(Collectors.toList());
+
+        } catch (IOException exception) {
+            exception.printStackTrace();
         }
 
         return output;
@@ -36,8 +57,8 @@ public class Read {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
 
             output = bufferedReader.lines().collect(Collectors.joining("\n"));
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException exception) {
+            exception.printStackTrace();
         }
 
         return output;
@@ -54,8 +75,8 @@ public class Read {
                 output.add(Integer.valueOf(bufferedReader.readLine()));
             }
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException exception) {
+            exception.printStackTrace();
         }
 
         return output;
@@ -72,8 +93,8 @@ public class Read {
                 output.add(Long.parseLong(bufferedReader.readLine()));
             }
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException exception) {
+            exception.printStackTrace();
         }
 
         return output;
