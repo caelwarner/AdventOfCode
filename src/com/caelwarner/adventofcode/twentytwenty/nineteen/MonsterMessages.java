@@ -47,15 +47,8 @@ public class MonsterMessages {
 				index += matcher31.end() - matcher31.start();
 			}
 
-			System.out.println("\n");
-			System.out.println("index = " + index);
-			System.out.println("length = " + line.length());
-			System.out.println("count31 = " + count31);
-			System.out.println("count42 = " + count42);
-
 			if (index == line.length() && count42 > count31 && count31 > 0) {
 				validMessages++;
-				System.out.println("correct");
 			}
 		}
 
