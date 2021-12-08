@@ -31,6 +31,7 @@ public class JurassicJigsaw {
 		}
 
 		Tile[][] tileMap = new Tile[(int) Math.sqrt(tiles.size())][(int) Math.sqrt(tiles.size())];
+		List<String> fullImage = new ArrayList<>();
 
 		for (Tile tile : tiles) {
 			borders.addAll(tile.borders.values());
@@ -39,8 +40,7 @@ public class JurassicJigsaw {
 		for (Tile tile : tiles) {
 			int matches = (int) borders.stream().filter(border1 -> tile.borders.values().stream().anyMatch(border2 -> matchesBorder(border1, border2))).count() - 4;
 
-			boolean isTopLeftMostTile = (Collections.frequency(borders, tile.borders.get(90)) == 2) &&
-					(Collections.frequency(borders, tile.borders.get(180)) == 2);
+			boolean isTopLeftMostTile = (Collections.frequency(borders, tile.borders.get(90)) == 2) && (Collections.frequency(borders, tile.borders.get(180)) == 2);
 
 			if (matches == 2 && isTopLeftMostTile) {
 				tileMap[0][0] = tile;
@@ -75,15 +75,13 @@ public class JurassicJigsaw {
 					Tile prevTile = tileMap[y][x - 1];
 
 					for (int r = 0; r < 360; r += 90) {
-						int finalR = r;
-
-						if (tile.borders.values().stream().anyMatch(border -> matchesBorder(border, prevTile.borders.get(finalR)))) {
+						if (tile.borders.values().stream().anyMatch(border -> matchesBorder(border, prevTile.borders.get(90)))) {
 							if (r != 0)
 								tile.rotateMatrix(r);
 
 							tileMap[y][x] = tile;
 
-							break xLoop;
+							continue xLoop;
 						}
 					}
 				}
