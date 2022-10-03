@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -74,6 +75,26 @@ public class Read {
             while (bufferedReader.ready()) {
                 output.add(Integer.valueOf(bufferedReader.readLine()));
             }
+
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
+
+        return output;
+    }
+
+    public static List<List<Integer>> as2DIntArray(String path) {
+        List<List<Integer>> output = new ArrayList<>();
+
+        try {
+            File file = new File("src/com/caelwarner/" + path);
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+
+            output = bufferedReader.lines()
+                    .map(line -> line.chars()
+                            .mapToObj(c -> c - '0')
+                            .collect(Collectors.toList()))
+                    .collect(Collectors.toList());
 
         } catch (IOException exception) {
             exception.printStackTrace();
