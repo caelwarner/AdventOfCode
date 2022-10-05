@@ -31,7 +31,7 @@ public class PassagePathing {
 		Cave start = getOrCreateCave(caves, "start");
 		Cave end = getOrCreateCave(caves, "end");
 
-		return start.walk(new ArrayList<>(), end, 0);
+		return start.walk(new ArrayList<>(), new ArrayList<>(), end, 0);
 	}
 
 	private static Cave getOrCreateCave(Set<Cave> caves, String caveName) {
@@ -61,21 +61,27 @@ public class PassagePathing {
 			this.isLarge = isLarge;
 		}
 
-		private int walk(List<Cave> visited, Cave end, int paths) {
-			if (!isLarge && visited.contains(this))
+		private int walk(List<Cave> visited, List<Cave> smallCaves, Cave end, int paths) {
+			if (!isLarge && smallCaves.size() - 1 > new HashSet<>(smallCaves).size())
 				return paths;
 
 			if (this == end)
-				return paths + 1;
+				return 1;
 
 			visited.add(this);
+			if (!isLarge)
+				smallCaves.add(this);
+
 			int totalPaths = 0;
 
 			for (Cave cave : connected) {
-				totalPaths += cave.walk(visited, end, paths);
+				if (!cave.name.equals("start"))
+					totalPaths += cave.walk(visited, smallCaves, end, paths);
 			}
 
 			visited.remove(visited.size() - 1);
+			if (!isLarge)
+				smallCaves.remove(smallCaves.size() - 1);
 
 			return totalPaths;
 		}
