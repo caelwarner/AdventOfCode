@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 public class JurassicJigsaw {
 
 	public static void main(String[] args) {
-		List<String> input = Read.asStringArray("adventofcode/twentytwenty/twenty/input.txt");
+		List<String> input = Read.asStringList("adventofcode/twentytwenty/twenty/input.txt");
 
 		buildImage(input);
 	}

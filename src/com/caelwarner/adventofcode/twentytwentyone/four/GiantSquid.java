@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 public class GiantSquid {
 
 	public static void main(String[] args) {
-		List<String> input = Read.asStringArray("adventofcode/twentytwentyone/four/input.txt");
+		List<String> input = Read.asStringList("adventofcode/twentytwentyone/four/input.txt");
 
 		System.out.println(getLosingScore(input));
 	}

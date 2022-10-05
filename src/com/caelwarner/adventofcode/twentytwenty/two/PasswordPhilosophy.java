@@ -7,7 +7,7 @@ import java.util.List;
 public class PasswordPhilosophy {
 
     public static void main(String[] args) {
-        List<String> input = Read.asStringArray("twentytwenty/two/input.txt");
+        List<String> input = Read.asStringList("twentytwenty/two/input.txt");
 
         System.out.println(checkIndexPasswords(input));
     }

@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 public class SevenSegmentSearch {
 
 	public static void main(String[] args) {
-		List<String> input = Read.asStringArray("adventofcode/twentytwentyone/eight/input.txt");
+		List<String> input = Read.asStringList("adventofcode/twentytwentyone/eight/input.txt");
 
 		System.out.println(findOutputValuesSum(input));
 	}

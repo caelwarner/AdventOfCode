@@ -8,7 +8,7 @@ import java.util.List;
 public class AdapterArray {
 
     public static void main(String[] args) {
-        List<Integer> input = Read.asIntArray("adventofcode/twentytwenty/ten/input.txt");
+        List<Integer> input = Read.asIntList("adventofcode/twentytwenty/ten/input.txt");
 
         System.out.println(findPossibleSolutions(input));
     }

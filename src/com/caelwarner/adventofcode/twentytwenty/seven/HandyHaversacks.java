@@ -11,7 +11,7 @@ public class HandyHaversacks {
     private static final List<Node> checkedNodes = new ArrayList<>();
 
     public static void main(String[] args) {
-        List<String> input = Read.asStringArray("adventofcode/twentytwenty/seven/input.txt");
+        List<String> input = Read.asStringList("adventofcode/twentytwenty/seven/input.txt");
 
         System.out.println(findBagsIn(input, Collections.singletonList(new Node("shiny gold", 1, null))));
 

@@ -7,7 +7,7 @@ import java.util.List;
 public class TobogganTrajectory {
 
     public static void main(String[] args) {
-        List<String> input = Read.asStringArray("twentytwenty/three/input.txt");
+        List<String> input = Read.asStringList("twentytwenty/three/input.txt");
 
         System.out.println(checkMultipleTrajectorys(input));
     }

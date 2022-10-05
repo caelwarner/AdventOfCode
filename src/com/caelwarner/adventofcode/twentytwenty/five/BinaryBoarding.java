@@ -7,7 +7,7 @@ import java.util.List;
 public class BinaryBoarding {
 
     public static void main(String[] args) {
-        List<String> input = Read.asStringArray("adventofcode/twentytwenty/five/input.txt");
+        List<String> input = Read.asStringList("adventofcode/twentytwenty/five/input.txt");
 
         System.out.println(findMissingSeatID(input));
     }

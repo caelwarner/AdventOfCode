@@ -9,7 +9,7 @@ import java.util.List;
 public class ShuttleSearch {
 
 	public static void main(String[] args) {
-		List<String> input = Read.asStringArray("adventofcode/twentytwenty/thirteen/input.txt");
+		List<String> input = Read.asStringList("adventofcode/twentytwenty/thirteen/input.txt");
 
 		System.out.println(findEarliestSequence(input));
 	}

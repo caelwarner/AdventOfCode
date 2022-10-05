@@ -39,7 +39,7 @@ public class SyntaxScoring {
 	);
 
 	public static void main(String[] args) {
-		List<String> input = Read.asStringArray("adventofcode/twentytwentyone/ten/input.txt");
+		List<String> input = Read.asStringList("adventofcode/twentytwentyone/ten/input.txt");
 
 		System.out.println(getAutocompleteScore(input));
 	}

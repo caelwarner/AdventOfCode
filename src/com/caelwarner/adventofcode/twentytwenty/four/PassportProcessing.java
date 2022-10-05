@@ -10,7 +10,7 @@ import java.util.List;
 public class PassportProcessing {
 
     public static void main(String[] args) {
-        List<String> input = Read.asStringArray("adventofcode/twentytwenty/four/input.txt");
+        List<String> input = Read.asStringList("adventofcode/twentytwenty/four/input.txt");
 
         System.out.println(processPassportsAdvanced(input));
     }

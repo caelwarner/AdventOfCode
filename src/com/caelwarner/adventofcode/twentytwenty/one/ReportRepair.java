@@ -7,7 +7,7 @@ import java.util.List;
 public class ReportRepair {
 
     public static void main(String[] args) {
-        List<Integer> input = Read.asIntArray("twentytwenty/one/input.txt");
+        List<Integer> input = Read.asIntList("twentytwenty/one/input.txt");
 
         System.out.println(findThreeSum(input));
     }

@@ -11,7 +11,7 @@ import java.util.Map;
 public class DockingData {
 
 	public static void main(String[] args) {
-		List<String> input = Read.asStringArray("adventofcode/twentytwenty/fourteen/input.txt");
+		List<String> input = Read.asStringList("adventofcode/twentytwenty/fourteen/input.txt");
 
 		System.out.println(calculateMemorySumVersion2(input));
 	}

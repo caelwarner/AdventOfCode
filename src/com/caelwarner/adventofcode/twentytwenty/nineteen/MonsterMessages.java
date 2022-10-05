@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 public class MonsterMessages {
 
 	public static void main(String[] args) {
-		List<String> input = Read.asStringArray("adventofcode/twentytwenty/nineteen/input.txt");
+		List<String> input = Read.asStringList("adventofcode/twentytwenty/nineteen/input.txt");
 
 		System.out.println(countValidMessages(input));
 	}

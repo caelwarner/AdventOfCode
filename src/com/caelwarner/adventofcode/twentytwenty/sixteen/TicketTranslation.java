@@ -8,7 +8,7 @@ import java.util.List;
 public class TicketTranslation {
 
 	public static void main(String[] args) {
-		List<String> input = Read.asStringArray("adventofcode/twentytwenty/sixteen/input.txt");
+		List<String> input = Read.asStringList("adventofcode/twentytwenty/sixteen/input.txt");
 
 		System.out.println(findDepartureProduct(input));
 	}

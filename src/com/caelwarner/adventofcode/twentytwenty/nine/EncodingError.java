@@ -11,7 +11,7 @@ public class EncodingError {
     private static final List<Long> numbers = new ArrayList<>();
 
     public static void main(String[] args) {
-        List<Long> input = Read.asLongArray("adventofcode/twentytwenty/nine/input.txt");
+        List<Long> input = Read.asLongList("adventofcode/twentytwenty/nine/input.txt");
 
         System.out.println(findEncryptionWeakness(input));
     }

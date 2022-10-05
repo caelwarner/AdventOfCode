@@ -14,7 +14,7 @@ public class HandheldHalting {
     private static final List<Integer> readLines = new ArrayList<>();
 
     public static void main(String[] args) {
-        List<String> input = Read.asStringArray("adventofcode/twentytwenty/eight/input.txt");
+        List<String> input = Read.asStringList("adventofcode/twentytwenty/eight/input.txt");
 
         System.out.println(runCode(input));
     }

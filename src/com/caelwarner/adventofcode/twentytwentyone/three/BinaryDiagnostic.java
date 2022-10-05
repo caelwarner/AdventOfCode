@@ -8,7 +8,7 @@ import java.util.List;
 public class BinaryDiagnostic {
 
 	public static void main(String[] args) {
-		List<String> input = Read.asStringArray("adventofcode/twentytwentyone/three/input.txt");
+		List<String> input = Read.asStringList("adventofcode/twentytwentyone/three/input.txt");
 
 		System.out.println(calculateLifeSupportRating(input));
 	}

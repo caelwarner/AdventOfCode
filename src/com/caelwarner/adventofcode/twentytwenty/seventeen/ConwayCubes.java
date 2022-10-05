@@ -12,7 +12,7 @@ public class ConwayCubes {
 	public static final char active = "#".charAt(0);
 
 	public static void main(String[] args) {
-		List<List<Character>> input = Read.as2DCharacterArray("adventofcode/twentytwenty/seventeen/input.txt");
+		List<List<Character>> input = Read.as2DCharacterList("adventofcode/twentytwenty/seventeen/input.txt");
 
 		System.out.println(findActiveCubes4D(input));
 	}

@@ -7,7 +7,7 @@ import java.util.List;
 public class SonarSweep {
 
 	public static void main(String[] args) {
-		List<Integer> input = Read.asIntArray("adventofcode/twentytwentyone/one/input.txt");
+		List<Integer> input = Read.asIntList("adventofcode/twentytwentyone/one/input.txt");
 
 		System.out.println(countDepthSumIncreases(input));
 	}

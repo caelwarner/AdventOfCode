@@ -7,7 +7,7 @@ import java.util.List;
 public class Dive {
 
 	public static void main(String[] args) {
-		List<String> input = Read.asStringArray("adventofcode/twentytwentyone/two/input.txt");
+		List<String> input = Read.asStringList("adventofcode/twentytwentyone/two/input.txt");
 
 		System.out.println(getDistanceAdvanced(input));
 	}

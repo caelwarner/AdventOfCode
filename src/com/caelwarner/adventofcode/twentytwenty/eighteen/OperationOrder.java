@@ -9,7 +9,7 @@ import java.util.List;
 public class OperationOrder {
 
 	public static void main(String[] args) {
-		List<String> input = Read.asStringArray("adventofcode/twentytwenty/eighteen/input.txt");
+		List<String> input = Read.asStringList("adventofcode/twentytwenty/eighteen/input.txt");
 
 		System.out.println(sumOfExpressions(input));
 	}

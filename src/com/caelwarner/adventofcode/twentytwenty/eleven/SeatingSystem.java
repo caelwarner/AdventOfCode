@@ -14,7 +14,7 @@ public class SeatingSystem {
     private static final char floor = ".".charAt(0);
 
     public static void main(String[] args) {
-        List<List<Character>> input = Read.as2DCharacterArray("adventofcode/twentytwenty/eleven/input.txt");
+        List<List<Character>> input = Read.as2DCharacterList("adventofcode/twentytwenty/eleven/input.txt");
 
         char[][] charInput = input.stream()
                 .map(a -> a.stream()

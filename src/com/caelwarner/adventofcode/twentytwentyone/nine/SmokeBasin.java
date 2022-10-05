@@ -1,5 +1,6 @@
 package com.caelwarner.adventofcode.twentytwentyone.nine;
 
+import com.caelwarner.util.Convert;
 import com.caelwarner.util.Read;
 
 import java.util.ArrayList;
@@ -9,19 +10,19 @@ import java.util.List;
 public class SmokeBasin {
 
 	public static void main(String[] args) {
-		List<List<Integer>> input = Read.as2DIntArray("adventofcode/twentytwentyone/nine/input.txt");
+		List<List<Integer>> input = Read.as2DIntList("adventofcode/twentytwentyone/nine/input.txt");
 
 		System.out.println(findLargestBasins(input));
 	}
 
 	private static int getRiskLevelsSum(List<List<Integer>> input) {
-		int[][] map = input.stream().map(list -> list.stream().mapToInt(i -> i).toArray()).toArray(int[][]::new);
+		int[][] map = Convert.to2DArray(input);
 
 		return findLowestPoints(map).stream().mapToInt(point -> point.height() + 1).sum();
 	}
 
 	private static long findLargestBasins(List<List<Integer>> input) {
-		List<Point> lowestPoints = findLowestPoints(input.stream().map(list -> list.stream().mapToInt(i -> i).toArray()).toArray(int[][]::new));
+		List<Point> lowestPoints = findLowestPoints(Convert.to2DArray(input));
 		Point[][] map = new Point[input.size()][input.get(0).size()];
 
 		for (int row = 0; row < map.length; row++) {

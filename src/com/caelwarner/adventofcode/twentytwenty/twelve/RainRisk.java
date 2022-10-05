@@ -7,7 +7,7 @@ import java.util.List;
 public class RainRisk {
 
 	public static void main(String[] args) {
-		List<String> input = Read.asStringArray("adventofcode/twentytwenty/twelve/input.txt");
+		List<String> input = Read.asStringList("adventofcode/twentytwenty/twelve/input.txt");
 
 		System.out.println(findWaypointManhattanDistance(input));
 	}
