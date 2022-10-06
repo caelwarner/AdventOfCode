@@ -10,6 +10,14 @@ public class Iterate {
 		}
 	}
 
+	public static void over2DArray(char[][] grid, TriConsumer<Character, Integer, Integer> action) {
+		for (int row = 0; row < grid.length; row++) {
+			for (int col = 0; col < grid[row].length; col++) {
+				action.accept(grid[row][col], row, col);
+			}
+		}
+	}
+
 	public static <T> void over2DArray(T[][] grid, TriConsumer<T, Integer, Integer> action) {
 		for (int row = 0; row < grid.length; row++) {
 			for (int col = 0; col < grid[row].length; col++) {
