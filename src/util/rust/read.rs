@@ -5,5 +5,5 @@ pub fn as_string(path: &str) -> String {
 }
 
 pub fn as_string_vec(path: &str) -> Vec<String> {
-    as_string(path).split("\n").map(|line| line.trim().to_string()).collect()
+    as_string(path).lines().map(|line| line.trim().to_string()).collect()
 }
