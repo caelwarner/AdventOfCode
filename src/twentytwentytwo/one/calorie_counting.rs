@@ -1,12 +1,10 @@
-use read;
+use util::input_as_str_vec;
 
 fn main() {
-    let input = read::as_string_vec("twentytwentytwo/one/input.txt");
-
-    println!("{}", find_top_three_calories(input));
+    println!("{}", find_top_three_calories(input_as_str_vec!()));
 }
 
-fn find_max_calories(input: Vec<String>) -> u32 {
+fn find_max_calories(input: Vec<&str>) -> u32 {
     let mut max_calories: u32 = 0;
     let mut current_calories: u32 = 0;
 
@@ -26,7 +24,7 @@ fn find_max_calories(input: Vec<String>) -> u32 {
     max_calories
 }
 
-fn find_top_three_calories(input: Vec<String>) -> u32 {
+fn find_top_three_calories(input: Vec<&str>) -> u32 {
     let mut calories: Vec<u32> = vec![];
     let mut current_calories: u32 = 0;
 

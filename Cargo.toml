@@ -10,7 +10,7 @@ rand = "0.8.5"
 
 [lib]
 name = "util"
-path = "src/util/rust/mod.rs"
+path = "src/util/rust/lib.rs"
 
 [[bin]]
 name = "calorie_counting"
@@ -19,3 +19,7 @@ path = "src/twentytwentytwo/one/calorie_counting.rs"
 [[bin]]
 name = "rock_paper_scissors"
 path = "src/twentytwentytwo/two/rock_paper_scissors.rs"
+
+[[bin]]
+name = "rucksack_reorganization"
+path = "src/twentytwentytwo/three/rucksack_reorganization.rs"

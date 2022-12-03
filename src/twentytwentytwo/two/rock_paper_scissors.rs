@@ -1,13 +1,10 @@
-use util::read;
-use util::math;
+use util::{input_as_str_vec, math};
 
 fn main() {
-    let input = read::as_string_vec("twentytwentytwo/two/input.txt");
-
-    println!("{}", follow_strategy_guide_correctly(input));
+    println!("{}", follow_strategy_guide_correctly(input_as_str_vec!()));
 }
 
-fn follow_strategy_guide(input: Vec<String>) -> u32 {
+fn follow_strategy_guide(input: Vec<&str>) -> u32 {
     let mut score: u32 = 0;
 
     for line in input {
@@ -22,7 +19,7 @@ fn follow_strategy_guide(input: Vec<String>) -> u32 {
     score
 }
 
-fn follow_strategy_guide_correctly(input: Vec<String>) -> u32 {
+fn follow_strategy_guide_correctly(input: Vec<&str>) -> u32 {
     let mut score: u32 = 0;
 
     for line in input {

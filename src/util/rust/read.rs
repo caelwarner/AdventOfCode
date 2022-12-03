@@ -1,9 +1,16 @@
-use std::fs;
-
-pub fn as_string(path: &str) -> String {
-    fs::read_to_string("src/".to_owned() + path).expect("File can't be read!")
+#[macro_export]
+macro_rules! input_as_str {
+    () => {
+        include_str!("input.txt")
+    }
 }
 
-pub fn as_string_vec(path: &str) -> Vec<String> {
-    as_string(path).lines().map(|line| line.trim().to_string()).collect()
+#[macro_export]
+macro_rules! input_as_str_vec {
+    () => {
+        include_str!("input.txt")
+            .lines()
+            .map(|line| line.trim())
+            .collect::<Vec<&str>>()
+    }
 }
