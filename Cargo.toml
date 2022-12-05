@@ -27,3 +27,7 @@ path = "src/twentytwentytwo/three/rucksack_reorganization.rs"
 [[bin]]
 name = "camp_cleanup"
 path = "src/twentytwentytwo/four/camp_cleanup.rs"
+
+[[bin]]
+name = "supply_stacks"
+path = "src/twentytwentytwo/five/supply_stacks.rs"

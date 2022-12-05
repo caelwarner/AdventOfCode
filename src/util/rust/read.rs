@@ -10,7 +10,6 @@ macro_rules! input_as_str_vec {
     () => {
         include_str!("input.txt")
             .lines()
-            .map(|line| line.trim())
             .collect::<Vec<&str>>()
     }
 }
