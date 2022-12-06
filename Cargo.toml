@@ -7,6 +7,7 @@ edition = "2021"
 
 [dependencies]
 rand = "0.8.5"
+itertools = "0.10.5"
 
 [lib]
 name = "util"
@@ -31,3 +32,7 @@ path = "src/twentytwentytwo/four/camp_cleanup.rs"
 [[bin]]
 name = "supply_stacks"
 path = "src/twentytwentytwo/five/supply_stacks.rs"
+
+[[bin]]
+name = "tuning_trouble"
+path = "src/twentytwentytwo/six/tuning_trouble.rs"
