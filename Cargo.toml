@@ -40,3 +40,7 @@ path = "src/twentytwentytwo/six/tuning_trouble.rs"
 [[bin]]
 name = "no_space_left_on_device"
 path = "src/twentytwentytwo/seven/no_space_left_on_device.rs"
+
+[[bin]]
+name = "treetop_tree_house"
+path = "src/twentytwentytwo/eight/treetop_tree_house.rs"
