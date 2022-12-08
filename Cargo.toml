@@ -36,3 +36,7 @@ path = "src/twentytwentytwo/five/supply_stacks.rs"
 [[bin]]
 name = "tuning_trouble"
 path = "src/twentytwentytwo/six/tuning_trouble.rs"
+
+[[bin]]
+name = "no_space_left_on_device"
+path = "src/twentytwentytwo/seven/no_space_left_on_device.rs"
