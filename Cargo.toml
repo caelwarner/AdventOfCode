@@ -44,3 +44,7 @@ path = "src/twentytwentytwo/seven/no_space_left_on_device.rs"
 [[bin]]
 name = "treetop_tree_house"
 path = "src/twentytwentytwo/eight/treetop_tree_house.rs"
+
+[[bin]]
+name = "rope_bridge"
+path = "src/twentytwentytwo/nine/rope_bridge.rs"
