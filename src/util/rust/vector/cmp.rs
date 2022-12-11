@@ -12,7 +12,7 @@ impl PartialEq<i32> for Vec2 {
 }
 
 impl PartialOrd<i32> for Vec2 {
-    fn partial_cmp(&self, other: &i32) -> Option<Ordering> {
+    fn partial_cmp(&self, _other: &i32) -> Option<Ordering> {
         None
     }
 

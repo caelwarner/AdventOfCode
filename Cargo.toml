@@ -52,3 +52,7 @@ path = "src/twentytwentytwo/nine/rope_bridge.rs"
 [[bin]]
 name = "cathode_ray_tube"
 path = "src/twentytwentytwo/ten/cathode_ray_tube.rs"
+
+[[bin]]
+name = "monkey_in_the_middle"
+path = "src/twentytwentytwo/eleven/monkey_in_the_middle.rs"
