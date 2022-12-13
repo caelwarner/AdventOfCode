@@ -27,4 +27,16 @@ impl Vec2 {
             self.y.clamp(min, max),
         )
     }
+    
+    pub fn offset(&self, x: i32, y: i32) -> Self {
+        Vec2::new(
+            self.x + x,
+            self.y + y,
+        )
+    }
+
+    pub fn distance(&self, from: &Vec2) -> i32 {
+        let difference = (from - self).abs();
+        difference.x + difference.y
+    }
 }

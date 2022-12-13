@@ -27,3 +27,16 @@ macro_rules! input_as_2d_u32_vec {
             .collect::<Vec<Vec<u32>>>()
     }
 }
+
+#[macro_export]
+macro_rules! input_as_2d_char_vec {
+    () => {
+        include_str!("input.txt")
+            .lines()
+            .map(|line| {
+                line.chars()
+                .collect::<Vec<char>>()
+            })
+            .collect::<Vec<Vec<char>>>()
+    }
+}

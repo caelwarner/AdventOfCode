@@ -56,3 +56,7 @@ path = "src/twentytwentytwo/ten/cathode_ray_tube.rs"
 [[bin]]
 name = "monkey_in_the_middle"
 path = "src/twentytwentytwo/eleven/monkey_in_the_middle.rs"
+
+[[bin]]
+name = "hill_climbing_algorithm"
+path = "src/twentytwentytwo/twelve/hill_climbing_algorithm.rs"
