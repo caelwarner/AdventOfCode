@@ -60,3 +60,7 @@ path = "src/twentytwentytwo/eleven/monkey_in_the_middle.rs"
 [[bin]]
 name = "hill_climbing_algorithm"
 path = "src/twentytwentytwo/twelve/hill_climbing_algorithm.rs"
+
+[[bin]]
+name = "distress_signal"
+path = "src/twentytwentytwo/thirteen/distress_signal.rs"
