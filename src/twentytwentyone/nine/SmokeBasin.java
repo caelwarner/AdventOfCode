@@ -1,16 +1,18 @@
 package twentytwentyone.nine;
 
 import util.java.Convert;
+import util.java.Iterate;
 import util.java.Read;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class SmokeBasin {
 
 	public static void main(String[] args) {
-		List<List<Integer>> input = Read.as2DIntList("adventofcode/twentytwentyone/nine/input.txt");
+		List<List<Integer>> input = Read.as2DIntList("twentytwentyone/nine/input.txt");
 
 		System.out.println(findLargestBasins(input));
 	}
@@ -32,7 +34,7 @@ public class SmokeBasin {
 		}
 
 		List<Integer> basinSizes = lowestPoints.stream()
-				.map(point -> map[point.y][point.x].walkBasin(map, new ArrayList<>(), 0))
+				.map(point -> map[point.y][point.x].walkBasin(map, new ArrayList<>()))
 				.sorted(Collections.reverseOrder())
 				.toList();
 
@@ -79,26 +81,18 @@ public class SmokeBasin {
 	}
 
 	private record Point(int height, int x, int y) {
-		public int walkBasin(Point[][] map, List<Point> visited, int basinSize) {
+		public int walkBasin(Point[][] map, List<Point> visited) {
 			if (height == 9 || visited.contains(this))
-				return basinSize;
+				return 0;
 
 			visited.add(this);
-			int size = 0;
+			AtomicInteger size = new AtomicInteger(1);
 
-			if (y > 0)
-				size += map[y - 1][x].walkBasin(map, visited, basinSize);
+			Iterate.around2DArray(map, y, x, (neighbour, row, col) -> {
+				size.addAndGet(neighbour.walkBasin(map, visited));
+			});
 
-			if (y + 1 < map.length)
-				size += map[y + 1][x].walkBasin(map, visited, basinSize);
-
-			if (x > 0)
-				size += map[y][x - 1].walkBasin(map, visited, basinSize);
-
-			if (x + 1 < map[0].length)
-				size += map[y][x + 1].walkBasin(map, visited, basinSize);
-
-			return size + 1;
+			return size.get();
 		}
 
 	}

@@ -21,12 +21,12 @@ public class DumboOctopus {
 		for (int step = 0; step < 100; step++) {
 			Iterate.over2DArray(map, (octopus, row, col) -> octopus.energyLevel++);
 			Iterate.over2DArray(map, (octopus, row, col) -> octopus.flash(map));
-			Iterate.over2DArray(map, ((octopus, row, col) -> {
+			Iterate.over2DArray(map, (octopus, row, col) -> {
 				if (octopus.flashed) {
 					octopus.energyLevel = 0;
 					octopus.flashed = false;
 				}
-			}));
+			});
 		}
 
 		return Octopus.totalFlashes;
@@ -57,7 +57,7 @@ public class DumboOctopus {
 	private static class Octopus {
 
 		private static int totalFlashes = 0;
-		private static List<Octopus> flashedOctpuses = new ArrayList<>();
+		private static final List<Octopus> flashedOctpuses = new ArrayList<>();
 
 		public int energyLevel;
 		public int x;
