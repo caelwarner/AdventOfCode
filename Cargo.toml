@@ -64,3 +64,7 @@ path = "src/twentytwentytwo/twelve/hill_climbing_algorithm.rs"
 [[bin]]
 name = "distress_signal"
 path = "src/twentytwentytwo/thirteen/distress_signal.rs"
+
+[[bin]]
+name = "regolith_reservoir"
+path = "src/twentytwentytwo/fourteen/regolith_reservoir.rs"
