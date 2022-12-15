@@ -68,3 +68,7 @@ path = "src/twentytwentytwo/thirteen/distress_signal.rs"
 [[bin]]
 name = "regolith_reservoir"
 path = "src/twentytwentytwo/fourteen/regolith_reservoir.rs"
+
+[[bin]]
+name = "beacon_exclusion_zone"
+path = "src/twentytwentytwo/fifteen/beacon_exclusion_zone.rs"
