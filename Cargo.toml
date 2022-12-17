@@ -6,7 +6,9 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+bit-set = "0.5.3"
 rand = "0.8.5"
+regex = "1.7.0"
 itertools = "0.10.5"
 
 [lib]
@@ -72,3 +74,7 @@ path = "src/twentytwentytwo/fourteen/regolith_reservoir.rs"
 [[bin]]
 name = "beacon_exclusion_zone"
 path = "src/twentytwentytwo/fifteen/beacon_exclusion_zone.rs"
+
+[[bin]]
+name = "proboscidea_volcanium"
+path = "src/twentytwentytwo/sixteen/proboscidea_volcanium.rs"
