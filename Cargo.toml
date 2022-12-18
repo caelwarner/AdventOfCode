@@ -6,7 +6,7 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-bit-set = "0.5.3"
+bitvec = "1.0.1"
 rand = "0.8.5"
 regex = "1.7.0"
 itertools = "0.10.5"
@@ -78,3 +78,7 @@ path = "src/twentytwentytwo/fifteen/beacon_exclusion_zone.rs"
 [[bin]]
 name = "proboscidea_volcanium"
 path = "src/twentytwentytwo/sixteen/proboscidea_volcanium.rs"
+
+[[bin]]
+name = "pyroclastic_flow"
+path = "src/twentytwentytwo/seventeen/pyroclastic_flow.rs"

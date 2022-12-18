@@ -1,7 +1,8 @@
 use std::cell::RefCell;
 use std::collections::HashMap;
 use std::rc::Rc;
-use bit_set::BitSet;
+use bitvec::bitarr;
+use bitvec::prelude::{BitArray, Lsb0};
 use itertools::Itertools;
 use regex::Regex;
 use util::input_as_str_vec;
@@ -18,7 +19,7 @@ fn release_max_pressure(input: Vec<&str>) -> u32 {
     working_valves[0].clone().borrow().release_pressure(
         &mut cache,
         &working_valves[0].clone(),
-        BitSet::with_capacity(16),
+        bitarr![u16, Lsb0; 0; 16],
         31,
         false
     ) as u32
@@ -32,7 +33,7 @@ fn release_max_pressure_with_elephant(input: Vec<&str>) -> u32 {
     working_valves[0].clone().borrow().release_pressure(
         &mut cache,
         &working_valves[0].clone(),
-        BitSet::with_capacity(16),
+        bitarr![u16, Lsb0; 0; 16],
         27,
         true
     ) as u32
@@ -160,31 +161,32 @@ impl Valve {
         &self,
         cache: &mut Vec<u16>,
         starting_valve: &Rc<RefCell<Valve>>,
-        mut visited: BitSet,
+        mut visited: BitArray<[u16; 1]>,
         minutes: u32,
         elephant: bool
     ) -> u16 {
         let mut max_pressure: u16 = 0;
 
-        visited.insert(self.id);
+        visited.set(self.id, true);
 
-        let bytes = visited.get_ref().to_bytes();
-        let visited_key = u16::from_le_bytes([bytes[0], bytes[1]]);
-        let key = visited_key as usize * 16 * 32 * 2 + self.id as usize * 32 * 2 + minutes as usize * 2 + elephant as usize;
+        let key = visited.data[0] as usize * 16 * 32 * 2 +
+            self.id as usize * 32 * 2 +
+            minutes as usize * 2 +
+            elephant as usize;
 
         if cache[key] != 0 {
             return cache[key];
         }
 
         for edge in &self.edges {
-            if edge.distance >= minutes - 1 || visited.contains(edge.valve.borrow().id) {
+            if edge.distance >= minutes - 1 || visited[edge.valve.borrow().id] {
                 continue;
             }
 
             let pressure = edge.valve.borrow().release_pressure(
                 cache,
                 starting_valve,
-                visited.clone(),
+                visited,
                 minutes - edge.distance - 1,
                 elephant
             );
@@ -198,7 +200,7 @@ impl Valve {
             max_pressure = starting_valve.borrow().release_pressure(
                 cache,
                 starting_valve,
-                visited.clone(),
+                visited,
                 27,
                 false
             );
