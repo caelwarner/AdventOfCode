@@ -97,7 +97,7 @@ impl<T> ops::IndexMut<&Vec2> for Vec<Vec<T>> {
 }
 
 //
-// TwoDimensional
+// ThreeDimensional
 //
 pub trait ThreeDimensional<T> {
     fn around_pos<F>(&mut self, pos: &Vec3, f: F)
