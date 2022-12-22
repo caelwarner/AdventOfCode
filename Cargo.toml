@@ -82,3 +82,7 @@ path = "src/twentytwentytwo/sixteen/proboscidea_volcanium.rs"
 [[bin]]
 name = "pyroclastic_flow"
 path = "src/twentytwentytwo/seventeen/pyroclastic_flow.rs"
+
+[[bin]]
+name = "boiling_boulders"
+path = "src/twentytwentytwo/eighteen/boiling_boulders.rs"

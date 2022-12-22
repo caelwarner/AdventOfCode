@@ -105,7 +105,7 @@ fn lowest_cost_path(hill: &mut Vec<Vec<Node>>, start: &Vec2, end: &Vec2) -> Opti
         let current_election = hill[current].elevation;
         let current_g_cost = hill[current].g_cost;
 
-        hill.around_pos(&current, |neighbour, neighbour_pos| {
+        hill.around_pos_mut(&current, |neighbour, neighbour_pos| {
             if closed.contains(&neighbour_pos) || neighbour.elevation > current_election + 1 {
                 return;
             }

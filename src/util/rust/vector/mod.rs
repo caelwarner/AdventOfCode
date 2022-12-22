@@ -42,6 +42,28 @@ impl Vec2 {
         let difference = (from - self).abs();
         difference.x + difference.y
     }
+
+    pub fn offsets() -> [Self; 4] {
+        [
+            Vec2::new(1, 0),
+            Vec2::new(-1, 0),
+            Vec2::new(0, 1),
+            Vec2::new(0, -1),
+        ]
+    }
+
+    pub fn n_neighbours(&self, n: i32) -> [Self; 4] {
+        [
+            self.offset(n, 0),
+            self.offset(-n, 0),
+            self.offset(0, n),
+            self.offset(0, -n),
+        ]
+    }
+
+    pub fn neighbours(&self) -> [Self; 4] {
+        self.n_neighbours(1)
+    }
 }
 
 //
@@ -87,5 +109,31 @@ impl Vec3 {
     pub fn distance(&self, from: &Vec3) -> i32 {
         let difference = (from - self).abs();
         difference.x + difference.y + difference.z
+    }
+
+    pub fn offsets() -> [Self; 6] {
+        [
+            Vec3::new(1, 0, 0),
+            Vec3::new(-1, 0, 0),
+            Vec3::new(0, 1, 0),
+            Vec3::new(0, -1, 0),
+            Vec3::new(0, 0, 1),
+            Vec3::new(0, 0, -1),
+        ]
+    }
+
+    pub fn n_neighbours(&self, n: i32) -> [Self; 6] {
+        [
+            self.offset(n, 0, 0),
+            self.offset(-n, 0, 0),
+            self.offset(0, n, 0),
+            self.offset(0, -n, 0),
+            self.offset(0, 0, n),
+            self.offset(0, 0, -n),
+        ]
+    }
+
+    pub fn neighbours(&self) -> [Self; 6] {
+        self.n_neighbours(1)
     }
 }
