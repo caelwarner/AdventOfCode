@@ -86,3 +86,7 @@ path = "src/twentytwentytwo/seventeen/pyroclastic_flow.rs"
 [[bin]]
 name = "boiling_boulders"
 path = "src/twentytwentytwo/eighteen/boiling_boulders.rs"
+
+[[bin]]
+name = "not_enough_minerals"
+path = "src/twentytwentytwo/nineteen/not_enough_minerals.rs"
