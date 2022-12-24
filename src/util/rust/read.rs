@@ -15,6 +15,16 @@ macro_rules! input_as_str_vec {
 }
 
 #[macro_export]
+macro_rules! input_as_num_vec {
+    ($num:ty) => {
+        include_str!("input.txt")
+            .lines()
+            .map(|line| line.parse::<$num>().unwrap())
+            .collect::<Vec<$num>>()
+    }
+}
+
+#[macro_export]
 macro_rules! input_as_2d_u32_vec {
     () => {
         include_str!("input.txt")

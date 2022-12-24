@@ -1,4 +1,5 @@
-use util::{input_as_str_vec, math};
+use util::input_as_str_vec;
+use util::math::Math;
 
 fn main() {
     println!("{}", follow_strategy_guide_correctly(input_as_str_vec!()));
@@ -27,7 +28,7 @@ fn follow_strategy_guide_correctly(input: Vec<&str>) -> u32 {
 
         let opponent = to_value(chars.next().unwrap());
         let outcome = to_outcome(chars.skip(1).next().unwrap());
-        let own = math::modulus(opponent + outcome, 3);
+        let own = (opponent + outcome).modulo(3);
 
         score += calculate_round_score(own, opponent);
     }
@@ -37,7 +38,7 @@ fn follow_strategy_guide_correctly(input: Vec<&str>) -> u32 {
 
 fn calculate_round_score(own: i32, opponent: i32) -> u32 {
     // Win
-    if math::modulus(own - 1, 3) == opponent {
+    if (own - 1).modulo(3) == opponent {
         return 7 + own as u32;
 
     // Draw

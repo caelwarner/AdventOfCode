@@ -1,7 +1,8 @@
 use std::collections::HashMap;
+use itertools::min;
 use regex::Regex;
 use util::input_as_str_vec;
-use util::math::triangle_num;
+use util::math::{Math, triangle_num};
 use util::regextools::CapturesTools;
 
 use crate::Material::{Clay, Geodes, Obsidian, Ore};
@@ -101,8 +102,8 @@ fn max_geodes(
     }
 
     // Check to see if even with branches best outcome if we could be the best
-    let a = triangle_num((inventory.robots[Geodes as usize] + minutes) as i32) as u16;
-    let b = triangle_num(inventory.robots[Geodes as usize] as i32) as u16;
+    let a = (inventory.robots[Geodes as usize] + minutes).triangle_num();
+    let b = inventory.robots[Geodes as usize].triangle_num();
     if a - b + inventory.materials[Geodes as usize] < *best {
         return 0 ;
     }

@@ -90,3 +90,7 @@ path = "src/twentytwentytwo/eighteen/boiling_boulders.rs"
 [[bin]]
 name = "not_enough_minerals"
 path = "src/twentytwentytwo/nineteen/not_enough_minerals.rs"
+
+[[bin]]
+name = "grove_positioning_system"
+path = "src/twentytwentytwo/twenty/grove_positioning_system.rs"
