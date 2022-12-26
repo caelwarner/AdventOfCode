@@ -2,7 +2,7 @@ use std::collections::HashMap;
 use itertools::min;
 use regex::Regex;
 use util::input_as_str_vec;
-use util::math::{Math, triangle_num};
+use util::math::Math;
 use util::regextools::CapturesTools;
 
 use crate::Material::{Clay, Geodes, Obsidian, Ore};
@@ -131,8 +131,10 @@ fn max_geodes(
     }
 
     // Don't build anything
-    inventory.update();
-    geodes = geodes.max(max_geodes(best, cache, minutes - 1, blueprint, inventory, time_threshold));
+    if geodes == 0 {
+        inventory.update();
+        geodes = geodes.max(max_geodes(best, cache, minutes - 1, blueprint, inventory, time_threshold));
+    }
 
     cache.insert(key, geodes);
 

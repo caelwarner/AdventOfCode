@@ -7,6 +7,8 @@ edition = "2021"
 
 [dependencies]
 bitvec = "1.0.1"
+dot = "0.1.4"
+lazy_static = "1.4.0"
 rand = "0.8.5"
 regex = "1.7.0"
 itertools = "0.10.5"
@@ -94,3 +96,7 @@ path = "src/twentytwentytwo/nineteen/not_enough_minerals.rs"
 [[bin]]
 name = "grove_positioning_system"
 path = "src/twentytwentytwo/twenty/grove_positioning_system.rs"
+
+[[bin]]
+name = "monkey_math"
+path = "src/twentytwentytwo/twentyone/monkey_math.rs"
