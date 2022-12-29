@@ -24,7 +24,7 @@ fn root_monkey_yell(input: Vec<&str>) -> i64 {
 fn human_yell(input: Vec<&str>) -> i64 {
     let monkeys = into_monkeys(input);
 
-    let mut path: Path = vec![];
+    let mut path = vec![];
     monkeys["root"].path_to_human(&mut path, &monkeys);
     let result = monkeys["root"].get_match(&path, &monkeys);
 

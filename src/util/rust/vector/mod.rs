@@ -18,24 +18,11 @@ impl Vec2 {
     }
 
     pub fn abs(&self) -> Self {
-        Vec2::new(
-            self.x.abs(),
-            self.y.abs(),
-        )
+        Vec2::new(self.x.abs(), self.y.abs())
     }
 
     pub fn clamp(&self, min: i32, max: i32) -> Self {
-        Vec2::new(
-            self.x.clamp(min, max),
-            self.y.clamp(min, max),
-        )
-    }
-    
-    pub fn offset(&self, x: i32, y: i32) -> Self {
-        Vec2::new(
-            self.x + x,
-            self.y + y,
-        )
+        Vec2::new(self.x.clamp(min, max), self.y.clamp(min, max))
     }
 
     pub fn distance(&self, from: &Vec2) -> i32 {
@@ -43,7 +30,17 @@ impl Vec2 {
         difference.x + difference.y
     }
 
-    pub fn offsets() -> [Self; 4] {
+    pub fn offset(&self, x: i32, y: i32) -> Self {
+        Vec2::new(self.x + x, self.y + y)
+    }
+
+    #[inline]
+    pub fn offset_mut(&mut self, x: i32, y: i32) {
+        self.x += x;
+        self.y += y;
+    }
+
+    pub const fn offsets() -> [Self; 4] {
         [
             Vec2::new(1, 0),
             Vec2::new(-1, 0),
@@ -61,6 +58,7 @@ impl Vec2 {
         ]
     }
 
+    #[inline]
     pub fn neighbours(&self) -> [Self; 4] {
         self.n_neighbours(1)
     }
@@ -83,11 +81,7 @@ impl Vec3 {
     }
 
     pub fn abs(&self) -> Self {
-        Vec3::new(
-            self.x.abs(),
-            self.y.abs(),
-            self.y.abs(),
-        )
+        Vec3::new(self.x.abs(), self.y.abs(), self.y.abs())
     }
 
     pub fn clamp(&self, min: i32, max: i32) -> Self {
@@ -99,11 +93,7 @@ impl Vec3 {
     }
 
     pub fn offset(&self, x: i32, y: i32, z: i32) -> Self {
-        Vec3::new(
-            self.x + x,
-            self.y + y,
-            self.z + z,
-        )
+        Vec3::new(self.x + x, self.y + y, self.z + z)
     }
 
     pub fn distance(&self, from: &Vec3) -> i32 {

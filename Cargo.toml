@@ -100,3 +100,7 @@ path = "src/twentytwentytwo/twenty/grove_positioning_system.rs"
 [[bin]]
 name = "monkey_math"
 path = "src/twentytwentytwo/twentyone/monkey_math.rs"
+
+[[bin]]
+name = "monkey_map"
+path = "src/twentytwentytwo/twentytwo/monkey_map.rs"

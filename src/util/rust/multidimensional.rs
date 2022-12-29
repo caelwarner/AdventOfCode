@@ -1,17 +1,26 @@
-use std::ops;
 use crate::vector::{Vec2, Vec3};
+use std::ops;
 
 //
 // TwoDimensional
 //
-pub trait TwoDimensional<T> {
+pub trait TwoDimensional<'a, T: 'a> {
+    fn height(&self) -> usize;
+    fn width(&self) -> usize;
+    fn width_at(&self, y: usize) -> Option<usize>;
+    fn vget(&self, v: Vec2) -> Option<&T>;
+    fn row(&'a self, y: usize) -> impl Iterator<Item = &'a T>;
+    fn col(&'a self, x: usize) -> impl Iterator<Item = &'a T>;
+    fn row_mut(&'a mut self, y: usize) -> impl Iterator<Item = &'a mut T>;
+    fn col_mut(&'a mut self, x: usize) -> impl Iterator<Item = &'a mut T>;
+
     fn around_pos<F>(&self, pos: &Vec2, f: F)
-        where
-            F: FnMut(&T, Vec2);
+    where
+        F: FnMut(&T, Vec2);
 
     fn around_pos_diagonally<F>(&self, pos: &Vec2, f: F)
-        where
-            F: FnMut(&T, Vec2);
+    where
+        F: FnMut(&T, Vec2);
 
     fn around_pos_mut<F>(&mut self, pos: &Vec2, f: F)
     where
@@ -22,10 +31,48 @@ pub trait TwoDimensional<T> {
         F: FnMut(&mut T, Vec2);
 }
 
-impl<T> TwoDimensional<T> for Vec<Vec<T>> {
+impl<'a, T: 'a> TwoDimensional<'a, T> for Vec<Vec<T>> {
+    fn height(&self) -> usize {
+        self.len()
+    }
+
+    fn width(&self) -> usize {
+        self.width_at(0).unwrap_or(0)
+    }
+
+    fn width_at(&self, y: usize) -> Option<usize> {
+        Some(self.get(y)?.len())
+    }
+
+    fn vget(&self, v: Vec2) -> Option<&T> {
+        self.get(v.y as usize)?.get(v.x as usize)
+    }
+
+    fn row(&'a self, y: usize) -> impl Iterator<Item = &'a T> {
+        self.get(y).expect("row to exist").iter()
+    }
+
+    fn col(&'a self, x: usize) -> impl Iterator<Item = &'a T> {
+        self.iter()
+            .map(move |row| row.get(x).expect("column to exist"))
+        // match it.any(|o| o.is_none()) {
+        //     true => None,
+        //     false => Some(it.filter_map(|o| o)),
+        // }
+    }
+
+    fn row_mut(&'a mut self, y: usize) -> impl Iterator<Item = &'a mut T> {
+        self.get_mut(y).expect("row to exist").iter_mut()
+    }
+
+    fn col_mut(&'a mut self, x: usize) -> impl Iterator<Item = &'a mut T> {
+        self.iter_mut()
+            .map(move |row| row.get_mut(x).expect("column to exist"))
+    }
+
     fn around_pos<F>(&self, pos: &Vec2, mut f: F)
-        where
-            F: FnMut(&T, Vec2)
+    where
+        F: FnMut(&T, Vec2),
     {
         // Above
         if pos.y > 0 {
@@ -49,8 +96,8 @@ impl<T> TwoDimensional<T> for Vec<Vec<T>> {
     }
 
     fn around_pos_diagonally<F>(&self, pos: &Vec2, mut f: F)
-        where
-            F: FnMut(&T, Vec2)
+    where
+        F: FnMut(&T, Vec2),
     {
         self.around_pos(pos, &mut f);
 
@@ -77,7 +124,7 @@ impl<T> TwoDimensional<T> for Vec<Vec<T>> {
 
     fn around_pos_mut<F>(&mut self, pos: &Vec2, mut f: F)
     where
-        F: FnMut(&mut T, Vec2)
+        F: FnMut(&mut T, Vec2),
     {
         // Above
         if pos.y > 0 {
@@ -102,7 +149,7 @@ impl<T> TwoDimensional<T> for Vec<Vec<T>> {
 
     fn around_pos_diagonally_mut<F>(&mut self, pos: &Vec2, mut f: F)
     where
-        F: FnMut(&mut T, Vec2)
+        F: FnMut(&mut T, Vec2),
     {
         self.around_pos_mut(pos, &mut f);
 
@@ -171,8 +218,8 @@ pub trait ThreeDimensional<T> {
 
 impl<T> ThreeDimensional<T> for Vec<Vec<Vec<T>>> {
     fn around_pos<F>(&self, pos: &Vec3, mut f: F)
-        where
-            F: FnMut(&T, Vec3)
+    where
+        F: FnMut(&T, Vec3),
     {
         // Above
         if pos.y > 0 {
@@ -206,7 +253,7 @@ impl<T> ThreeDimensional<T> for Vec<Vec<Vec<T>>> {
 
     fn around_pos_mut<F>(&mut self, pos: &Vec3, mut f: F)
     where
-        F: FnMut(&mut T, Vec3)
+        F: FnMut(&mut T, Vec3),
     {
         // Above
         if pos.y > 0 {
