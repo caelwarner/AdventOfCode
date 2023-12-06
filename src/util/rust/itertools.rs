@@ -1,52 +1,32 @@
-pub trait AdventIter: Iterator {
-    fn first_last(self) -> FirstLast<Self> where Self: Sized;
+pub trait AdventItertools: Iterator {
+    fn first_last(self) -> Option<FirstLast<Self::Item>>
+        where Self::Item: Clone;
 }
 
-impl <I: Iterator> AdventIter for I {
-    fn first_last(self) -> FirstLast<Self> where Self: Sized {
-        FirstLast::new(self)
-    }
-}
-
-pub struct FirstLast<I> where I: Iterator {
-    first: FirstLastState,
-    iter: I,
-}
-
-enum FirstLastState {
-    First,
-    Last,
-    Finished,
-}
-
-impl <I: Iterator> FirstLast<I> {
-    fn new(iter: I) -> Self {
-        Self {
-            first: FirstLastState::First,
-            iter,
+impl <I> AdventItertools for I
+    where I: Iterator {
+    fn first_last(mut self) -> Option<FirstLast<I::Item>>
+        where I::Item: Clone
+    {
+        if let Some(first) = self.next() {
+            if let Some(last) = self.last() {
+                Some(FirstLast {
+                    first,
+                    last,
+                })
+            } else {
+                Some(FirstLast {
+                    first: first.clone(),
+                    last: first,
+                })
+            }
+        } else {
+            None
         }
     }
 }
 
-impl <I> Iterator for FirstLast<I> where I: Iterator {
-    type Item = I::Item;
-
-    fn next(&mut self) -> Option<Self::Item> {
-        match &self.first {
-            FirstLastState::First => {
-                self.first = FirstLastState::Last;
-                self.iter.next()
-            },
-            FirstLastState::Last => {
-                self.first = FirstLastState::Finished;
-
-                let mut last = self.iter.next();
-                while let Some(next) = self.iter.next() {
-                    last = Some(next);
-                }
-                last
-            },
-            FirstLastState::Finished => None,
-        }
-    }
+pub struct FirstLast<I: Clone> {
+    pub first: I,
+    pub last: I,
 }

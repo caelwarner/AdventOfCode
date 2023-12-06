@@ -108,3 +108,7 @@ path = "src/twentytwentytwo/twentytwo/monkey_map.rs"
 [[bin]]
 name = "trebuchet"
 path = "src/twentytwentythree/one/trebuchet.rs"
+
+[[bin]]
+name = "cube_conundrum"
+path = "src/twentytwentythree/two/cube_conundrum.rs"
