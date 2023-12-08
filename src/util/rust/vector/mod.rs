@@ -49,18 +49,67 @@ impl Vec2 {
         ]
     }
 
+    pub fn n_left(&self, n: i32) -> Self {
+        self.offset(-n, 0)
+    }
+
+    pub fn n_right(&self, n: i32) -> Self {
+        self.offset(n, 0)
+    }
+
+    pub fn n_up(&self, n: i32) -> Self {
+        self.offset(0, n)
+    }
+
+    pub fn n_down(&self, n: i32) -> Self {
+        self.offset(0, -n)
+    }
+
+    #[inline]
+    pub fn left(&self) -> Self {
+        self.n_left(1)
+    }
+
+    #[inline]
+    pub fn right(&self) -> Self {
+        self.n_right(1)
+    }
+
+    #[inline]
+    pub fn up(&self) -> Self {
+        self.n_up(1)
+    }
+
+    #[inline]
+    pub fn down(&self) -> Self {
+        self.n_down(1)
+    }
+
     pub fn n_neighbours(&self, n: i32) -> [Self; 4] {
         [
-            self.offset(n, 0),
-            self.offset(-n, 0),
-            self.offset(0, n),
-            self.offset(0, -n),
+            self.n_left(n),
+            self.n_right(n),
+            self.n_up(n),
+            self.n_down(n),
         ]
     }
 
     #[inline]
     pub fn neighbours(&self) -> [Self; 4] {
         self.n_neighbours(1)
+    }
+
+    pub fn neighbours_diagonal(&self) -> [Self; 8] {
+        [
+            self.n_left(1),
+            self.n_right(1),
+            self.n_up(1),
+            self.n_down(1),
+            self.offset(-1, -1),
+            self.offset(1, -1),
+            self.offset(-1, 1),
+            self.offset(1, 1),
+        ]
     }
 }
 

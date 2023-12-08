@@ -1,256 +1,179 @@
 use std::ops;
+use bitvec::macros::internal::funty::Fundamental;
 use crate::vector::{Vec2, Vec3};
 
-//
-// Vec2
-//
-impl ops::Add<Vec2> for Vec2 {
-    type Output = Vec2;
+macro_rules! inner_vec2_ops {
+    ( $vec:ty, $rhs:ty, $trait_name:ident, $fn_name:ident, $assign_trait_name:ident, $assign_fn_name:ident, $op:tt, $assign_op:tt, $x:tt, $y:tt ) => {
+        impl ops::$trait_name<$rhs> for $vec {
+            type Output = $vec;
 
-    fn add(self, rhs: Vec2) -> Self::Output {
-        Vec2::new(self.x + rhs.x, self.y + rhs.y)
-    }
+            fn $fn_name(self, rhs: $rhs) -> Self::Output {
+                <$vec>::new(self.x $op rhs.$x.as_i32(), self.y $op rhs.$y.as_i32())
+            }
+        }
+
+        impl ops::$trait_name<&$rhs> for $vec {
+            type Output = $vec;
+
+            fn $fn_name(self, rhs: &$rhs) -> Self::Output {
+                <$vec>::new(self.x $op rhs.$x.as_i32(), self.y $op rhs.$y.as_i32())
+            }
+        }
+
+        impl ops::$trait_name<$rhs> for &$vec {
+            type Output = $vec;
+
+            fn $fn_name(self, rhs: $rhs) -> Self::Output {
+                <$vec>::new(self.x $op rhs.$x.as_i32(), self.y $op rhs.$y.as_i32())
+            }
+        }
+
+        impl ops::$trait_name<&$rhs> for &$vec {
+            type Output = $vec;
+
+            fn $fn_name(self, rhs: &$rhs) -> Self::Output {
+                <$vec>::new(self.x $op rhs.$x.as_i32(), self.y $op rhs.$y.as_i32())
+            }
+        }
+
+        impl ops::$assign_trait_name<$rhs> for $vec {
+            fn $assign_fn_name(&mut self, rhs: $rhs) {
+                self.x $assign_op rhs.$x.as_i32();
+                self.y $assign_op rhs.$y.as_i32();
+            }
+        }
+
+        impl ops::$assign_trait_name<&$rhs> for $vec {
+            fn $assign_fn_name(&mut self, rhs: &$rhs) {
+                self.x $assign_op rhs.$x.as_i32();
+                self.y $assign_op rhs.$y.as_i32();
+            }
+        }
+
+        impl ops::$assign_trait_name<$rhs> for &mut $vec {
+            fn $assign_fn_name(&mut self, rhs: $rhs) {
+                self.x $assign_op rhs.$x.as_i32();
+                self.y $assign_op rhs.$y.as_i32();
+            }
+        }
+
+        impl ops::$assign_trait_name<&$rhs> for &mut $vec {
+            fn $assign_fn_name(&mut self, rhs: &$rhs) {
+                self.x $assign_op rhs.$x.as_i32();
+                self.y $assign_op rhs.$y.as_i32();
+            }
+        }
+    };
 }
 
-impl ops::Add<&Vec2> for &Vec2 {
-    type Output = Vec2;
-
-    fn add(self, rhs: &Vec2) -> Self::Output {
-        Vec2::new(self.x + rhs.x, self.y + rhs.y)
-    }
+macro_rules! vec2_ops {
+    ( $vec:ty; $(($trait_name:ident, $fn_name:ident, $assign_trait_name:ident, $assign_fn_name:ident, $op:tt, $assign_op:tt)),+ ) => {
+        $(
+        inner_vec2_ops!($vec, $vec, $trait_name, $fn_name, $assign_trait_name, $assign_fn_name, $op, $assign_op, x, y);
+        inner_vec2_ops!($vec, (i32, i32), $trait_name, $fn_name, $assign_trait_name, $assign_fn_name, $op, $assign_op, 0, 1);
+        inner_vec2_ops!($vec, (u32, u32), $trait_name, $fn_name, $assign_trait_name, $assign_fn_name, $op, $assign_op, 0, 1);
+        inner_vec2_ops!($vec, (usize, usize), $trait_name, $fn_name, $assign_trait_name, $assign_fn_name, $op, $assign_op, 0, 1);
+        inner_vec2_ops!($vec, (&i32, &i32), $trait_name, $fn_name, $assign_trait_name, $assign_fn_name, $op, $assign_op, 0, 1);
+        inner_vec2_ops!($vec, (&u32, &u32), $trait_name, $fn_name, $assign_trait_name, $assign_fn_name, $op, $assign_op, 0, 1);
+        inner_vec2_ops!($vec, (&usize, &usize), $trait_name, $fn_name, $assign_trait_name, $assign_fn_name, $op, $assign_op, 0, 1);
+        )*
+    };
 }
 
-impl ops::Sub<Vec2> for Vec2 {
-    type Output = Vec2;
+macro_rules! inner_vec3_ops {
+    ( $vec:ty, $rhs:ty, $trait_name:ident, $fn_name:ident, $assign_trait_name:ident, $assign_fn_name:ident, $op:tt, $assign_op:tt, $x:tt, $y:tt, $z:tt ) => {
+        impl ops::$trait_name<$rhs> for $vec {
+            type Output = $vec;
 
-    fn sub(self, rhs: Vec2) -> Self::Output {
-        Vec2::new(self.x - rhs.x, self.y - rhs.y)
-    }
+            fn $fn_name(self, rhs: $rhs) -> Self::Output {
+                <$vec>::new(self.x $op rhs.$x.as_i32(), self.y $op rhs.$y.as_i32(), self.y $op rhs.$z.as_i32())
+            }
+        }
+
+        impl ops::$trait_name<&$rhs> for $vec {
+            type Output = $vec;
+
+            fn $fn_name(self, rhs: &$rhs) -> Self::Output {
+                <$vec>::new(self.x $op rhs.$x.as_i32(), self.y $op rhs.$y.as_i32(), self.y $op rhs.$z.as_i32())
+            }
+        }
+
+        impl ops::$trait_name<$rhs> for &$vec {
+            type Output = $vec;
+
+            fn $fn_name(self, rhs: $rhs) -> Self::Output {
+                <$vec>::new(self.x $op rhs.$x.as_i32(), self.y $op rhs.$y.as_i32(), self.y $op rhs.$z.as_i32())
+            }
+        }
+
+        impl ops::$trait_name<&$rhs> for &$vec {
+            type Output = $vec;
+
+            fn $fn_name(self, rhs: &$rhs) -> Self::Output {
+                <$vec>::new(self.x $op rhs.$x.as_i32(), self.y $op rhs.$y.as_i32(), self.y $op rhs.$z.as_i32())
+            }
+        }
+
+        impl ops::$assign_trait_name<$rhs> for $vec {
+            fn $assign_fn_name(&mut self, rhs: $rhs) {
+                self.x $assign_op rhs.$x.as_i32();
+                self.y $assign_op rhs.$y.as_i32();
+                self.z $assign_op rhs.$z.as_i32();
+            }
+        }
+
+        impl ops::$assign_trait_name<&$rhs> for $vec {
+            fn $assign_fn_name(&mut self, rhs: &$rhs) {
+                self.x $assign_op rhs.$x.as_i32();
+                self.y $assign_op rhs.$y.as_i32();
+                self.z $assign_op rhs.$z.as_i32();
+            }
+        }
+
+        impl ops::$assign_trait_name<$rhs> for &mut $vec {
+            fn $assign_fn_name(&mut self, rhs: $rhs) {
+                self.x $assign_op rhs.$x.as_i32();
+                self.y $assign_op rhs.$y.as_i32();
+                self.z $assign_op rhs.$z.as_i32();
+            }
+        }
+
+        impl ops::$assign_trait_name<&$rhs> for &mut $vec {
+            fn $assign_fn_name(&mut self, rhs: &$rhs) {
+                self.x $assign_op rhs.$x.as_i32();
+                self.y $assign_op rhs.$y.as_i32();
+                self.z $assign_op rhs.$z.as_i32();
+            }
+        }
+    };
 }
 
-impl ops::Sub<&Vec2> for &Vec2 {
-    type Output = Vec2;
-
-    fn sub(self, rhs: &Vec2) -> Self::Output {
-        Vec2::new(self.x - rhs.x, self.y - rhs.y)
-    }
+macro_rules! vec3_ops {
+    ( $vec:ty; $(($trait_name:ident, $fn_name:ident, $assign_trait_name:ident, $assign_fn_name:ident, $op:tt, $assign_op:tt)),+ ) => {
+        $(
+        inner_vec3_ops!($vec, $vec, $trait_name, $fn_name, $assign_trait_name, $assign_fn_name, $op, $assign_op, x, y, z);
+        inner_vec3_ops!($vec, (i32, i32, i32), $trait_name, $fn_name, $assign_trait_name, $assign_fn_name, $op, $assign_op, 0, 1, 2);
+        inner_vec3_ops!($vec, (u32, u32, u32), $trait_name, $fn_name, $assign_trait_name, $assign_fn_name, $op, $assign_op, 0, 1, 2);
+        inner_vec3_ops!($vec, (usize, usize, usize), $trait_name, $fn_name, $assign_trait_name, $assign_fn_name, $op, $assign_op, 0, 1, 2);
+        inner_vec3_ops!($vec, (&i32, &i32, &i32), $trait_name, $fn_name, $assign_trait_name, $assign_fn_name, $op, $assign_op, 0, 1, 2);
+        inner_vec3_ops!($vec, (&u32, &u32, &u32), $trait_name, $fn_name, $assign_trait_name, $assign_fn_name, $op, $assign_op, 0, 1, 2);
+        inner_vec3_ops!($vec, (&usize, &usize, &usize), $trait_name, $fn_name, $assign_trait_name, $assign_fn_name, $op, $assign_op, 0, 1, 2);
+        )*
+    };
 }
 
-impl ops::Mul<Vec2> for Vec2 {
-    type Output = Vec2;
+vec2_ops!(
+    Vec2;
+    (Add, add, AddAssign, add_assign, +, +=),
+    (Sub, sub, SubAssign, sub_assign, -, -=),
+    (Mul, mul, MulAssign, mul_assign, *, *=),
+    (Div, div, DivAssign, div_assign, /, /=)
+);
 
-    fn mul(self, rhs: Vec2) -> Self::Output {
-        Vec2::new(self.x * rhs.x, self.y * rhs.y)
-    }
-}
-
-impl ops::Mul<&Vec2> for &Vec2 {
-    type Output = Vec2;
-
-    fn mul(self, rhs: &Vec2) -> Self::Output {
-        Vec2::new(self.x * rhs.x, self.y * rhs.y)
-    }
-}
-
-impl ops::Div<Vec2> for Vec2 {
-    type Output = Vec2;
-
-    fn div(self, rhs: Vec2) -> Self::Output {
-        Vec2::new(self.x / rhs.x, self.y / rhs.y)
-    }
-}
-
-impl ops::Div<&Vec2> for &Vec2 {
-    type Output = Vec2;
-
-    fn div(self, rhs: &Vec2) -> Self::Output {
-        Vec2::new(self.x / rhs.x, self.y / rhs.y)
-    }
-}
-
-impl ops::AddAssign<Vec2> for Vec2 {
-    fn add_assign(&mut self, rhs: Vec2) {
-        self.x += rhs.x;
-        self.y += rhs.y;
-    }
-}
-
-impl ops::AddAssign<&Vec2> for Vec2 {
-    fn add_assign(&mut self, rhs: &Vec2) {
-        self.x += rhs.x;
-        self.y += rhs.y;
-    }
-}
-
-impl ops::SubAssign<Vec2> for Vec2 {
-    fn sub_assign(&mut self, rhs: Vec2) {
-        self.x -= rhs.x;
-        self.y -= rhs.y;
-    }
-}
-
-impl ops::SubAssign<&Vec2> for Vec2 {
-    fn sub_assign(&mut self, rhs: &Vec2) {
-        self.x -= rhs.x;
-        self.y -= rhs.y;
-    }
-}
-
-impl ops::MulAssign<Vec2> for Vec2 {
-    fn mul_assign(&mut self, rhs: Vec2) {
-        self.x *= rhs.x;
-        self.y *= rhs.y;
-    }
-}
-
-impl ops::MulAssign<&Vec2> for Vec2 {
-    fn mul_assign(&mut self, rhs: &Vec2) {
-        self.x *= rhs.x;
-        self.y *= rhs.y;
-    }
-}
-
-impl ops::DivAssign<Vec2> for Vec2 {
-    fn div_assign(&mut self, rhs: Vec2) {
-        self.x /= rhs.x;
-        self.y /= rhs.y;
-    }
-}
-
-impl ops::DivAssign<&Vec2> for Vec2 {
-    fn div_assign(&mut self, rhs: &Vec2) {
-        self.x /= rhs.x;
-        self.y /= rhs.y;
-    }
-}
-
-//
-// Vec3
-//
-impl ops::Add<Vec3> for Vec3 {
-    type Output = Vec3;
-
-    fn add(self, rhs: Vec3) -> Self::Output {
-        Vec3::new(self.x + rhs.x, self.y + rhs.y, self.z + rhs.z)
-    }
-}
-
-impl ops::Add<&Vec3> for &Vec3 {
-    type Output = Vec3;
-
-    fn add(self, rhs: &Vec3) -> Self::Output {
-        Vec3::new(self.x + rhs.x, self.y + rhs.y, self.z + rhs.z)
-    }
-}
-
-impl ops::Sub<Vec3> for Vec3 {
-    type Output = Vec3;
-
-    fn sub(self, rhs: Vec3) -> Self::Output {
-        Vec3::new(self.x - rhs.x, self.y - rhs.y, self.z - rhs.z)
-    }
-}
-
-impl ops::Sub<&Vec3> for &Vec3 {
-    type Output = Vec3;
-
-    fn sub(self, rhs: &Vec3) -> Self::Output {
-        Vec3::new(self.x - rhs.x, self.y - rhs.y, self.z - rhs.z)
-    }
-}
-
-impl ops::Mul<Vec3> for Vec3 {
-    type Output = Vec3;
-
-    fn mul(self, rhs: Vec3) -> Self::Output {
-        Vec3::new(self.x * rhs.x, self.y * rhs.y, self.z * rhs.z)
-    }
-}
-
-impl ops::Mul<&Vec3> for &Vec3 {
-    type Output = Vec3;
-
-    fn mul(self, rhs: &Vec3) -> Self::Output {
-        Vec3::new(self.x * rhs.x, self.y * rhs.y, self.z * rhs.z)
-    }
-}
-
-impl ops::Div<Vec3> for Vec3 {
-    type Output = Vec3;
-
-    fn div(self, rhs: Vec3) -> Self::Output {
-        Vec3::new(self.x / rhs.x, self.y / rhs.y, self.z / rhs.z)
-    }
-}
-
-impl ops::Div<&Vec3> for &Vec3 {
-    type Output = Vec3;
-
-    fn div(self, rhs: &Vec3) -> Self::Output {
-        Vec3::new(self.x / rhs.x, self.y / rhs.y, self.z / rhs.z)
-    }
-}
-
-impl ops::AddAssign<Vec3> for Vec3 {
-    fn add_assign(&mut self, rhs: Vec3) {
-        self.x += rhs.x;
-        self.y += rhs.y;
-        self.z += rhs.z;
-    }
-}
-
-impl ops::AddAssign<&Vec3> for Vec3 {
-    fn add_assign(&mut self, rhs: &Vec3) {
-        self.x += rhs.x;
-        self.y += rhs.y;
-        self.z += rhs.z;
-    }
-}
-
-impl ops::SubAssign<Vec3> for Vec3 {
-    fn sub_assign(&mut self, rhs: Vec3) {
-        self.x -= rhs.x;
-        self.y -= rhs.y;
-        self.z -= rhs.z;
-    }
-}
-
-impl ops::SubAssign<&Vec3> for Vec3 {
-    fn sub_assign(&mut self, rhs: &Vec3) {
-        self.x -= rhs.x;
-        self.y -= rhs.y;
-        self.z -= rhs.z;
-    }
-}
-
-impl ops::MulAssign<Vec3> for Vec3 {
-    fn mul_assign(&mut self, rhs: Vec3) {
-        self.x *= rhs.x;
-        self.y *= rhs.y;
-        self.z *= rhs.z;
-    }
-}
-
-impl ops::MulAssign<&Vec3> for Vec3 {
-    fn mul_assign(&mut self, rhs: &Vec3) {
-        self.x *= rhs.x;
-        self.y *= rhs.y;
-        self.z *= rhs.z;
-    }
-}
-
-impl ops::DivAssign<Vec3> for Vec3 {
-    fn div_assign(&mut self, rhs: Vec3) {
-        self.x /= rhs.x;
-        self.y /= rhs.y;
-        self.z /= rhs.z;
-    }
-}
-
-impl ops::DivAssign<&Vec3> for Vec3 {
-    fn div_assign(&mut self, rhs: &Vec3) {
-        self.x /= rhs.x;
-        self.y /= rhs.y;
-        self.z /= rhs.z;
-    }
-}
+vec3_ops!(
+    Vec3;
+    (Add, add, AddAssign, add_assign, +, +=),
+    (Sub, sub, SubAssign, sub_assign, -, -=),
+    (Mul, mul, MulAssign, mul_assign, *, *=),
+    (Div, div, DivAssign, div_assign, /, /=)
+);

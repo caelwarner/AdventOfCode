@@ -112,3 +112,7 @@ path = "src/twentytwentythree/one/trebuchet.rs"
 [[bin]]
 name = "cube_conundrum"
 path = "src/twentytwentythree/two/cube_conundrum.rs"
+
+[[bin]]
+name = "gear_ratios"
+path = "src/twentytwentythree/three/gear_ratios.rs"

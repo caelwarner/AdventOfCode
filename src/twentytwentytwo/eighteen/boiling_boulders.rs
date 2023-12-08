@@ -1,7 +1,7 @@
 use std::collections::{HashSet, VecDeque};
 use itertools::Itertools;
+use util::arraytools::Array3D;
 use util::input_as_str_vec;
-use util::multidimensional::ThreeDimensional;
 use util::vector::Vec3;
 
 fn main() {
@@ -29,7 +29,7 @@ fn boulder_exterior_surface_area(input: Vec<&str>) -> u32 {
 
     cubes.iter().for_each(|cube| boulder[cube.offset(1, 1, 1)] = true);
 
-    traverse_boulder_bfs(&boulder)
+    traverse_boulder(&boulder)
 }
 
 fn to_cubes(input: Vec<&str>) -> Vec<Vec3> {
@@ -42,7 +42,7 @@ fn to_cubes(input: Vec<&str>) -> Vec<Vec3> {
         ).collect::<Vec<Vec3>>()
 }
 
-fn traverse_boulder_bfs(boulder: &Vec<Vec<Vec<bool>>>) -> u32 {
+fn traverse_boulder(boulder: &Vec<Vec<Vec<bool>>>) -> u32 {
     let mut exterior_surfaces: HashSet<(Vec3, Vec3)> = HashSet::new();
     let mut queue: VecDeque<Vec3> = VecDeque::new();
     let mut visited: HashSet<Vec3> = HashSet::new();

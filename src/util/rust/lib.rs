@@ -1,8 +1,9 @@
 #![allow(incomplete_features)]
 #![feature(return_position_impl_trait_in_trait)]
+#![feature(concat_idents)]
 
 pub mod math;
-pub mod multidimensional;
+pub mod arraytools;
 pub mod read;
 pub mod regextools;
 pub mod vector;
