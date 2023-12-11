@@ -62,6 +62,6 @@ impl Knot for Vec2 {
     }
 
     fn follow(&mut self, to_follow: &Vec2) {
-        *self += (to_follow - self).clamp(-1, 1);
+        *self += (to_follow - *self).clamp(-1, 1);
     }
 }

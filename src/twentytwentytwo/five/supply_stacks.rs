@@ -102,7 +102,7 @@ fn parse_crates(input: &[&str]) -> Vec<Vec<char>> {
             }
 
             // Add crate to correct stack based of off char index
-            crates[((j - 1) / 4)].push(c);
+            crates[(j - 1) / 4].push(c);
         }
     }
 

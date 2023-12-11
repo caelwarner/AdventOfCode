@@ -120,7 +120,6 @@ impl Rock {
         for shape in SHAPES[self.shape] {
             let pos = self.pos.offset(0, y) + shape.clone();
 
-
             if pos.y < 0 || chamber[pos] != '.' {
                 for o in SHAPES[self.shape] {
                     chamber[&self.pos + o] = '#'

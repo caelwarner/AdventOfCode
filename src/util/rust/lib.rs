@@ -1,6 +1,5 @@
 #![allow(incomplete_features)]
 #![feature(return_position_impl_trait_in_trait)]
-#![feature(concat_idents)]
 
 pub mod math;
 pub mod arraytools;

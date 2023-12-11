@@ -11,7 +11,7 @@ dot = "0.1.4"
 lazy_static = "1.4.0"
 rand = "0.8.5"
 regex = "1.7.0"
-itertools = "0.10.5"
+itertools = "0.12.0"
 
 [lib]
 name = "util"
@@ -116,3 +116,7 @@ path = "src/twentytwentythree/two/cube_conundrum.rs"
 [[bin]]
 name = "gear_ratios"
 path = "src/twentytwentythree/three/gear_ratios.rs"
+
+[[bin]]
+name = "scratchcards"
+path = "src/twentytwentythree/four/scratchcards.rs"

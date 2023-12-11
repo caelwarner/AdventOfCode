@@ -1,7 +1,7 @@
 use std::collections::HashSet;
 
 use util::input_as_2d_char_vec;
-use util::multidimensional::TwoDimensional;
+use util::arraytools::Array2D;
 use util::vector::Vec2;
 
 fn main() {
