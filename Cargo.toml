@@ -120,3 +120,7 @@ path = "src/twentytwentythree/three/gear_ratios.rs"
 [[bin]]
 name = "scratchcards"
 path = "src/twentytwentythree/four/scratchcards.rs"
+
+[[bin]]
+name = "if_you_give_a_seed_a_fertilizer"
+path = "src/twentytwentythree/five/if_you_give_a_seed_a_fertilizer.rs"
