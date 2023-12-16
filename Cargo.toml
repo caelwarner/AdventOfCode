@@ -128,3 +128,7 @@ path = "src/twentytwentythree/five/if_you_give_a_seed_a_fertilizer.rs"
 [[bin]]
 name = "wait_for_it"
 path = "src/twentytwentythree/six/wait_for_it.rs"
+
+[[bin]]
+name = "camel_cards"
+path = "src/twentytwentythree/seven/camel_cards.rs"
