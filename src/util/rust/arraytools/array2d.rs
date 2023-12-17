@@ -21,23 +21,25 @@ pub trait Array2D<'a, T: 'a> {
     fn neighbours_diagonally_mut(&mut self, pos: &Vec2) -> NeighboursMut2D<'_, T>;
 
     fn around_pos<F>(&self, pos: &Vec2, f: F)
-        where
-            F: FnMut(&T, Vec2);
+        where F: FnMut(&T, Vec2);
 
     fn around_pos_diagonally<F>(&self, pos: &Vec2, f: F)
-        where
-            F: FnMut(&T, Vec2);
+        where F: FnMut(&T, Vec2);
 
     fn around_pos_mut<F>(&mut self, pos: &Vec2, f: F)
-        where
-            F: FnMut(&mut T, Vec2);
+        where F: FnMut(&mut T, Vec2);
 
     fn around_pos_diagonally_mut<F>(&mut self, pos: &Vec2, f: F)
-        where
-            F: FnMut(&mut T, Vec2);
+        where F: FnMut(&mut T, Vec2);
 
     fn flat_iter(&self) -> FlatIter2D<'_, T>;
     fn flat_iter_mut(&mut self) -> FlatIterMut2D<'_, T>;
+
+    fn insert_row_default(&mut self, y: i32, default: T)
+        where T: Clone;
+    
+    fn insert_col_default(&mut self, x: i32, default: T)
+        where T: Clone;
 }
 
 impl<'a, T: 'a> Array2D<'a, T> for Vec<Vec<T>> {
@@ -94,29 +96,25 @@ impl<'a, T: 'a> Array2D<'a, T> for Vec<Vec<T>> {
     }
 
     fn around_pos<F>(&self, pos: &Vec2, mut f: F)
-        where
-            F: FnMut(&T, Vec2),
+        where F: FnMut(&T, Vec2),
     {
         self.neighbours(pos).for_each(|(element, neighbour)| f(element, neighbour));
     }
 
     fn around_pos_diagonally<F>(&self, pos: &Vec2, mut f: F)
-        where
-            F: FnMut(&T, Vec2),
+        where F: FnMut(&T, Vec2),
     {
         self.neighbours_diagonally(pos).for_each(|(element, neighbour)| f(element, neighbour));
     }
 
     fn around_pos_mut<F>(&mut self, pos: &Vec2, mut f: F)
-        where
-            F: FnMut(&mut T, Vec2),
+        where F: FnMut(&mut T, Vec2),
     {
         self.neighbours_mut(pos).for_each(|(element, neighbour)| f(element, neighbour));
     }
 
     fn around_pos_diagonally_mut<F>(&mut self, pos: &Vec2, mut f: F)
-        where
-            F: FnMut(&mut T, Vec2),
+        where F: FnMut(&mut T, Vec2),
     {
         self.neighbours_diagonally_mut(pos).for_each(|(element, neighbour)| f(element, neighbour));
     }
@@ -127,6 +125,18 @@ impl<'a, T: 'a> Array2D<'a, T> for Vec<Vec<T>> {
 
     fn flat_iter_mut(&mut self) -> FlatIterMut2D<'_, T> {
         FlatIterMut2D::new(self)
+    }
+
+    fn insert_row_default(&mut self, y: i32, default: T)
+        where T: Clone,
+    {
+        self.insert(y as usize, vec![default; self.width() as usize]);
+    }
+
+    fn insert_col_default(&mut self, x: i32, default: T)
+        where T: Clone,
+    {
+        self.iter_mut().for_each(|row| row.insert(x as usize, default.clone()))
     }
 }
 

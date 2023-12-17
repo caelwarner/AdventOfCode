@@ -145,3 +145,7 @@ path = "src/twentytwentythree/nine/mirage_maintenance.rs"
 [[bin]]
 name = "pipe_maze"
 path = "src/twentytwentythree/ten/pipe_maze.rs"
+
+[[bin]]
+name = "cosmic_expansion"
+path = "src/twentytwentythree/eleven/cosmic_expansion.rs"

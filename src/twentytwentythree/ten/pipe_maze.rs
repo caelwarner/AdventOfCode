@@ -1,6 +1,7 @@
 use std::cmp::min;
 use std::collections::{HashMap, HashSet};
-use itertools::Itertools;
+use std::iter;
+use itertools::{Itertools, unfold};
 use num::Integer;
 use util::arraytools::Array2D;
 use util::input_as_2d_char_vec;
@@ -32,29 +33,28 @@ fn enclosed_tiles(mut input: Vec<Vec<char>>) -> u32 {
 }
 
 fn build_main_pipe(input: &Vec<Vec<char>>) -> HashSet<Vec2> {
-    let mut pipe = HashSet::new();
-
-    let start = input.flat_iter().find(|(&c, _)| c == 'S').unwrap().1;
-    pipe.insert(start);
-
-    let mut prev = start;
-    let mut pos = input.neighbours(&start)
+    let start = input.flat_iter()
+        .find(|(&c, _)| c == 'S')
+        .unwrap().1;
+    let next = input.neighbours(&start)
         .filter(|(&tile, _)| tile != '.')
         .find(|(&tile, neighbour)| pipe_directions(tile, neighbour).iter().any(|&connect| connect == start))
         .unwrap().1;
 
-    while pos != start {
-        let next = pipe_directions(input[pos], &pos)
-            .into_iter()
-            .find(|&next| next != prev)
-            .unwrap();
+    unfold((start, next), |(prev, pos)| {
+        if *pos == start {
+            None
+        } else {
+            (*prev, *pos) = (*pos, pipe_directions(input[*pos], &pos)
+                .into_iter()
+                .find(|&next| next != *prev)
+                .unwrap());
 
-        pipe.insert(pos);
-        prev = pos;
-        pos = next;
-    }
-
-    pipe
+            Some(*prev)
+        }
+    })
+        .chain(iter::once(start))
+        .collect()
 }
 
 fn pipe_directions(tile: char, pos: &Vec2) -> [Vec2; 2] {
