@@ -141,3 +141,7 @@ path = "src/twentytwentythree/eight/haunted_wasteland.rs"
 [[bin]]
 name = "mirage_maintence"
 path = "src/twentytwentythree/nine/mirage_maintenance.rs"
+
+[[bin]]
+name = "pipe_maze"
+path = "src/twentytwentythree/ten/pipe_maze.rs"

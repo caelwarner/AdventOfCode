@@ -58,11 +58,11 @@ impl Vec2 {
     }
 
     pub fn n_up(&self, n: i32) -> Self {
-        self.offset(0, n)
+        self.offset(0, -n)
     }
 
     pub fn n_down(&self, n: i32) -> Self {
-        self.offset(0, -n)
+        self.offset(0, n)
     }
 
     #[inline]

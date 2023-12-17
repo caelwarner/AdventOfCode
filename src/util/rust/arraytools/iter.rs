@@ -27,7 +27,22 @@ impl<'a, T: 'a> Iterator for RowIter2D<'a, T> {
         self.pos += (1, 0);
         next
     }
+
+    fn size_hint(&self) -> (usize, Option<usize>) {
+        let size = (self.array2d.width_at(self.pos.y).unwrap_or(0) - self.pos.x) as usize;
+        (size, Some(size))
+    }
 }
+
+impl<'a, T: 'a> DoubleEndedIterator for RowIter2D<'a, T> {
+    fn next_back(&mut self) -> Option<Self::Item> {
+        let next = self.array2d.v_get(&self.pos);
+        self.pos -= (1, 0);
+        next
+    }
+}
+
+impl<'a, T: 'a> ExactSizeIterator for RowIter2D<'a, T> {}
 
 pub struct RowIterMut2D<'a, T: 'a> {
     array2d: &'a mut Vec<Vec<T>>,
@@ -91,7 +106,22 @@ impl<'a, T: 'a> Iterator for ColIter2D<'a, T> {
         self.pos += (0, 1);
         next
     }
+
+    fn size_hint(&self) -> (usize, Option<usize>) {
+        let size = (self.array2d.height() - self.pos.y) as usize;
+        (size, Some(size))
+    }
 }
+
+impl<'a, T: 'a> DoubleEndedIterator for ColIter2D<'a, T> {
+    fn next_back(&mut self) -> Option<Self::Item> {
+        let next = self.array2d.v_get(&self.pos);
+        self.pos -= (0, 1);
+        next
+    }
+}
+
+impl<'a, T: 'a> ExactSizeIterator for ColIter2D<'a, T> {}
 
 pub struct ColIterMut2D<'a, T: 'a> {
     array2d: &'a mut Vec<Vec<T>>,
@@ -278,12 +308,12 @@ impl<'a, T: 'a> Iterator for FlatIterMut2D<'a, T> {
         self.pos = flat_iter_next_pos(self.array2d, self.pos)?;
 
         let ptr = self.array2d.get_mut(self.pos.y as usize)?.as_mut_ptr();
-        let x = self.pos.x as usize;
-
-        self.pos += (1, 0);
 
         // SAFETY: get_mut call will return early if outside y bounds,
         //         loop above ensures that x is within bounds
-        Some((unsafe { &mut *ptr.add(x) }, self.pos))
+        let next = Some((unsafe { &mut *ptr.add(self.pos.x as usize) }, self.pos));
+
+        self.pos += (1, 0);
+        next
     }
 }
