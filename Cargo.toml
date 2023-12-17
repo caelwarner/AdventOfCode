@@ -9,6 +9,7 @@ edition = "2021"
 bitvec = "1.0.1"
 dot = "0.1.4"
 lazy_static = "1.4.0"
+num = "0.4.1"
 rand = "0.8.5"
 regex = "1.7.0"
 itertools = "0.12.0"
@@ -132,3 +133,7 @@ path = "src/twentytwentythree/six/wait_for_it.rs"
 [[bin]]
 name = "camel_cards"
 path = "src/twentytwentythree/seven/camel_cards.rs"
+
+[[bin]]
+name = "haunted_wasteland"
+path = "src/twentytwentythree/eight/haunted_wasteland.rs"
