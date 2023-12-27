@@ -27,6 +27,18 @@ where
     }
 }
 
+impl<I> DoubleEndedIterator for InspectDebug<I>
+where
+    I: DoubleEndedIterator,
+    I::Item: Debug,
+{
+    fn next_back(&mut self) -> Option<Self::Item> {
+        let elem = self.iter.next_back()?;
+        dbg!(&elem);
+        Some(elem)
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct FirstLast<I: Clone> {
     pub first: I,

@@ -48,7 +48,7 @@ impl<'a, T: 'a> Array2D<'a, T> for Vec<Vec<T>> {
     }
 
     fn width(&self) -> i32 {
-        self.width_at(0).unwrap_or(0) as i32
+        self.width_at(0).unwrap_or(0)
     }
 
     fn width_at(&self, y: i32) -> Option<i32> {

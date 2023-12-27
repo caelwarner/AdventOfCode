@@ -1,7 +1,7 @@
 use crate::Instruction::{Left, Move, Right};
 use itertools::Itertools;
 use util::input_as_str_vec;
-use util::multidimensional::TwoDimensional;
+use util::arraytools::Array2D;
 use util::vector::Vec2;
 
 type Map = Vec<Vec<char>>;
@@ -73,12 +73,12 @@ fn into_instructions(input: &Vec<&str>) -> Vec<Instruction> {
 
 fn try_wrap(direction: i32, mut pos: Vec2, map: &Map) -> Vec2 {
     let original = pos;
-    if map.vget(pos).unwrap_or(&' ') != &' ' {
+    if map.v_get(&pos).unwrap_or(&' ') != &' ' {
         return original;
     }
 
-    let y_modulo = map.height() as i32;
-    let x_modulo = map.width_at(pos.y.rem_euclid(y_modulo) as usize).unwrap() as i32;
+    let y_modulo = map.height();
+    let x_modulo = map.width_at(pos.y.rem_euclid(y_modulo)).unwrap();
     let offset = direction_to_offset(direction);
 
     loop {

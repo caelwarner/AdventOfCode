@@ -1,5 +1,4 @@
 use std::collections::HashMap;
-use std::hash::{DefaultHasher, Hash, Hasher};
 use std::iter::once;
 
 use itertools::Itertools;
@@ -12,22 +11,20 @@ fn main() {
 }
 
 fn find_all_arrangements(input: Vec<&str>) -> u64 {
-    let mut cache = HashMap::new();
-
     input.iter()
+        .copied()
         .map_into::<SpringRecord>()
-        .map(|SpringRecord(damaged, accurate)| find_arrangements(&mut cache, &damaged, &accurate))
+        .map(|SpringRecord(damaged, accurate)| find_arrangements(&mut HashMap::new(), &damaged, &accurate))
         .sum()
 }
 
 fn find_all_arrangements_unfolded(input: Vec<&str>) -> u64 {
-    let mut cache = HashMap::new();
-
     input.iter()
+        .copied()
         .map_into::<SpringRecord>()
         .map(|SpringRecord(damaged, accurate)| {
             find_arrangements(
-                &mut cache,
+                &mut HashMap::new(),
                 &damaged.iter()
                     .copied()
                     .chain(once('?'))
@@ -40,12 +37,10 @@ fn find_all_arrangements_unfolded(input: Vec<&str>) -> u64 {
         .sum()
 }
 
-fn find_arrangements(cache: &mut HashMap<u64, u64>, record: &[char], accurate: &[usize]) -> u64 {
+fn find_arrangements(cache: &mut HashMap<(usize, usize), u64>, record: &[char], accurate: &[usize]) -> u64 {
     let mut arrangements = 0;
-    let hash = hash(record, accurate);
-
-    if cache.contains_key(&hash) {
-        return cache[&hash];
+    if let Some(value) = cache.get(&(record.len(), accurate.len())) {
+        return *value;
     }
 
     if accurate.len() == 0 {
@@ -69,22 +64,14 @@ fn find_arrangements(cache: &mut HashMap<u64, u64>, record: &[char], accurate: &
         }
     }
 
-    cache.insert(hash, arrangements);
+    cache.insert((record.len(), accurate.len()), arrangements);
     arrangements
-}
-
-fn hash(record: &[char], accurate: &[usize]) -> u64 {
-    let mut hasher = DefaultHasher::new();
-    record.hash(&mut hasher);
-    accurate.hash(&mut hasher);
-
-    hasher.finish()
 }
 
 struct SpringRecord(Vec<char>, Vec<usize>);
 
-impl From<&&str> for SpringRecord {
-    fn from(value: &&str) -> Self {
+impl From<&str> for SpringRecord {
+    fn from(value: &str) -> Self {
         let (record, accurate) = value.split_once(" ").unwrap();
         SpringRecord(
             record.chars().collect_vec(),

@@ -153,3 +153,7 @@ path = "src/twentytwentythree/eleven/cosmic_expansion.rs"
 [[bin]]
 name = "hot_springs"
 path = "src/twentytwentythree/twelve/hot_springs.rs"
+
+[[bin]]
+name = "point_of_incidence"
+path = "src/twentytwentythree/thirteen/point_of_incidence.rs"

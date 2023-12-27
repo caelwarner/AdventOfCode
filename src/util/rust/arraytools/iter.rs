@@ -6,15 +6,17 @@ use crate::vector::Vec2;
 //
 pub struct RowIter2D<'a, T: 'a> {
     array2d: &'a Vec<Vec<T>>,
-    pos: Vec2,
+    front: Vec2,
+    back: Vec2,
 }
 
 impl<'a, T: 'a> RowIter2D<'a, T> {
     #[inline]
-    pub const fn new(array2d: &'a Vec<Vec<T>>, y: i32) -> Self {
+    pub fn new(array2d: &'a Vec<Vec<T>>, y: i32) -> Self {
         Self {
             array2d,
-            pos: Vec2::new(0, y),
+            front: Vec2::new(0, y),
+            back: Vec2::new(array2d.width_at(y).unwrap_or(0) - 1, y),
         }
     }
 }
@@ -23,21 +25,47 @@ impl<'a, T: 'a> Iterator for RowIter2D<'a, T> {
     type Item = &'a T;
 
     fn next(&mut self) -> Option<Self::Item> {
-        let next = self.array2d.v_get(&self.pos);
-        self.pos += (1, 0);
+        if self.front.x > self.back.x {
+            return None;
+        }
+
+        let next = self.array2d.v_get(&self.front);
+        self.front += (1, 0);
         next
     }
 
     fn size_hint(&self) -> (usize, Option<usize>) {
-        let size = (self.array2d.width_at(self.pos.y).unwrap_or(0) - self.pos.x) as usize;
+        let size = ((self.back.x + 1) - self.front.x) as usize;
         (size, Some(size))
     }
 }
 
 impl<'a, T: 'a> DoubleEndedIterator for RowIter2D<'a, T> {
+    /// # Examples
+    ///
+    /// ```
+    /// use util::arraytools::Array2D;
+    ///
+    /// let array2d = vec![vec![1, 2, 3, 4, 5, 6, 7]; 1];
+    /// let mut iter = array2d.row(0);
+    ///
+    /// assert_eq!(Some(&1), iter.next());
+    /// assert_eq!(Some(&7), iter.next_back());
+    /// assert_eq!(Some(&6), iter.next_back());
+    /// assert_eq!(Some(&2), iter.next());
+    /// assert_eq!(Some(&3), iter.next());
+    /// assert_eq!(Some(&5), iter.next_back());
+    /// assert_eq!(Some(&4), iter.next_back());
+    /// assert_eq!(None, iter.next());
+    /// assert_eq!(None, iter.next_back());
+    /// ```
     fn next_back(&mut self) -> Option<Self::Item> {
-        let next = self.array2d.v_get(&self.pos);
-        self.pos -= (1, 0);
+        if self.back.x < self.front.x {
+            return None;
+        }
+
+        let next = self.array2d.v_get(&self.back);
+        self.back -= (1, 0);
         next
     }
 }
@@ -85,15 +113,17 @@ impl<'a, T> Iterator for RowIterMut2D<'a, T>
 //
 pub struct ColIter2D<'a, T: 'a> {
     array2d: &'a Vec<Vec<T>>,
-    pos: Vec2,
+    front: Vec2,
+    back: Vec2,
 }
 
 impl<'a, T: 'a> ColIter2D<'a, T> {
     #[inline]
-    pub const fn new(array2d: &'a Vec<Vec<T>>, x: i32) -> Self {
+    pub fn new(array2d: &'a Vec<Vec<T>>, x: i32) -> Self {
         Self {
             array2d,
-            pos: Vec2::new(x, 0),
+            front: Vec2::new(x, 0),
+            back: Vec2::new(x, array2d.height() - 1),
         }
     }
 }
@@ -102,21 +132,43 @@ impl<'a, T: 'a> Iterator for ColIter2D<'a, T> {
     type Item = &'a T;
 
     fn next(&mut self) -> Option<Self::Item> {
-        let next = self.array2d.v_get(&self.pos);
-        self.pos += (0, 1);
+        if self.front.y > self.back.y {
+            return None;
+        }
+
+        let next = self.array2d.v_get(&self.front);
+        self.front += (0, 1);
         next
     }
 
     fn size_hint(&self) -> (usize, Option<usize>) {
-        let size = (self.array2d.height() - self.pos.y) as usize;
+        let size = ((self.back.y + 1) - self.front.y) as usize;
         (size, Some(size))
     }
 }
 
 impl<'a, T: 'a> DoubleEndedIterator for ColIter2D<'a, T> {
+    /// # Examples
+    ///
+    /// ```
+    /// use util::arraytools::Array2D;
+    ///
+    /// let array2d = vec![vec![1, 2, 3], vec![4, 5, 6], vec![7, 8, 9]];
+    /// let mut iter = array2d.col(1);
+    ///
+    /// assert_eq!(Some(&2), iter.next());
+    /// assert_eq!(Some(&8), iter.next_back());
+    /// assert_eq!(Some(&5), iter.next_back());
+    /// assert_eq!(None, iter.next());
+    /// assert_eq!(None, iter.next_back());
+    /// ```
     fn next_back(&mut self) -> Option<Self::Item> {
-        let next = self.array2d.v_get(&self.pos);
-        self.pos -= (0, 1);
+        if self.back.y < self.front.y {
+            return None;
+        }
+
+        let next = self.array2d.v_get(&self.back);
+        self.back -= (0, 1);
         next
     }
 }
