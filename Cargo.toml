@@ -14,6 +14,9 @@ rand = "0.8.5"
 regex = "1.7.0"
 itertools = "0.12.0"
 
+[profile.release]
+debug = true
+
 [lib]
 name = "util"
 path = "src/util/rust/lib.rs"
@@ -157,3 +160,7 @@ path = "src/twentytwentythree/twelve/hot_springs.rs"
 [[bin]]
 name = "point_of_incidence"
 path = "src/twentytwentythree/thirteen/point_of_incidence.rs"
+
+[[bin]]
+name = "parabolic_reflector_dish"
+path = "src/twentytwentythree/fourteen/parabolic_reflector_dish.rs"

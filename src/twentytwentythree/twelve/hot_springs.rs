@@ -1,13 +1,16 @@
+extern crate core;
+
 use std::collections::HashMap;
 use std::iter::once;
 
 use itertools::Itertools;
 
 use util::input_as_str_vec;
+use util::run::{Part, run};
 
 fn main() {
-    println!("Part 1: {}", find_all_arrangements(input_as_str_vec!()));
-    println!("Part 2: {}", find_all_arrangements_unfolded(input_as_str_vec!()));
+    run(Part::One, || find_all_arrangements(input_as_str_vec!()));
+    run(Part::Two, || find_all_arrangements_unfolded(input_as_str_vec!()));
 }
 
 fn find_all_arrangements(input: Vec<&str>) -> u64 {

@@ -4,6 +4,7 @@ use crate::vector::Vec2;
 //
 // RowIter2D
 //
+#[must_use = "iterators are lazy and do nothing unless consumed"]
 pub struct RowIter2D<'a, T: 'a> {
     array2d: &'a Vec<Vec<T>>,
     front: Vec2,
@@ -24,6 +25,7 @@ impl<'a, T: 'a> RowIter2D<'a, T> {
 impl<'a, T: 'a> Iterator for RowIter2D<'a, T> {
     type Item = &'a T;
 
+    #[inline]
     fn next(&mut self) -> Option<Self::Item> {
         if self.front.x > self.back.x {
             return None;
@@ -34,6 +36,7 @@ impl<'a, T: 'a> Iterator for RowIter2D<'a, T> {
         next
     }
 
+    #[inline]
     fn size_hint(&self) -> (usize, Option<usize>) {
         let size = ((self.back.x + 1) - self.front.x) as usize;
         (size, Some(size))
@@ -59,6 +62,7 @@ impl<'a, T: 'a> DoubleEndedIterator for RowIter2D<'a, T> {
     /// assert_eq!(None, iter.next());
     /// assert_eq!(None, iter.next_back());
     /// ```
+    #[inline]
     fn next_back(&mut self) -> Option<Self::Item> {
         if self.back.x < self.front.x {
             return None;
@@ -72,6 +76,7 @@ impl<'a, T: 'a> DoubleEndedIterator for RowIter2D<'a, T> {
 
 impl<'a, T: 'a> ExactSizeIterator for RowIter2D<'a, T> {}
 
+#[must_use = "iterators are lazy and do nothing unless consumed"]
 pub struct RowIterMut2D<'a, T: 'a> {
     array2d: &'a mut Vec<Vec<T>>,
     pos: Vec2,
@@ -91,6 +96,7 @@ impl<'a, T> Iterator for RowIterMut2D<'a, T>
 {
     type Item = &'a mut T;
 
+    #[inline]
     fn next(&mut self) -> Option<Self::Item> {
         // Check if ptr[x] exists, it can't be less than zero
         if self.pos.x >= self.array2d.width_at(self.pos.y)? {
@@ -111,6 +117,7 @@ impl<'a, T> Iterator for RowIterMut2D<'a, T>
 //
 // ColIter2D
 //
+#[must_use = "iterators are lazy and do nothing unless consumed"]
 pub struct ColIter2D<'a, T: 'a> {
     array2d: &'a Vec<Vec<T>>,
     front: Vec2,
@@ -131,6 +138,7 @@ impl<'a, T: 'a> ColIter2D<'a, T> {
 impl<'a, T: 'a> Iterator for ColIter2D<'a, T> {
     type Item = &'a T;
 
+    #[inline]
     fn next(&mut self) -> Option<Self::Item> {
         if self.front.y > self.back.y {
             return None;
@@ -141,6 +149,7 @@ impl<'a, T: 'a> Iterator for ColIter2D<'a, T> {
         next
     }
 
+    #[inline]
     fn size_hint(&self) -> (usize, Option<usize>) {
         let size = ((self.back.y + 1) - self.front.y) as usize;
         (size, Some(size))
@@ -162,6 +171,7 @@ impl<'a, T: 'a> DoubleEndedIterator for ColIter2D<'a, T> {
     /// assert_eq!(None, iter.next());
     /// assert_eq!(None, iter.next_back());
     /// ```
+    #[inline]
     fn next_back(&mut self) -> Option<Self::Item> {
         if self.back.y < self.front.y {
             return None;
@@ -175,6 +185,7 @@ impl<'a, T: 'a> DoubleEndedIterator for ColIter2D<'a, T> {
 
 impl<'a, T: 'a> ExactSizeIterator for ColIter2D<'a, T> {}
 
+#[must_use = "iterators are lazy and do nothing unless consumed"]
 pub struct ColIterMut2D<'a, T: 'a> {
     array2d: &'a mut Vec<Vec<T>>,
     pos: Vec2,
@@ -194,6 +205,7 @@ impl<'a, T> Iterator for ColIterMut2D<'a, T>
 {
     type Item = &'a mut T;
 
+    #[inline]
     fn next(&mut self) -> Option<Self::Item> {
         // Check if ptr[x] exists
         if self.pos.x < 0 || self.pos.x >= self.array2d.width_at(self.pos.y)? {
@@ -214,6 +226,7 @@ impl<'a, T> Iterator for ColIterMut2D<'a, T>
 //
 // Neighbours2D
 //
+#[must_use = "iterators are lazy and do nothing unless consumed"]
 pub struct Neighbours2D<'a, T: 'a> {
     array2d: &'a Vec<Vec<T>>,
     neighbours: Vec<Vec2>,
@@ -234,6 +247,7 @@ impl<'a, T: 'a> Neighbours2D<'a, T> {
 impl<'a, T: 'a> Iterator for Neighbours2D<'a, T> {
     type Item = (&'a T, Vec2);
 
+    #[inline]
     fn next(&mut self) -> Option<Self::Item> {
         while self.i < self.neighbours.len() {
             let pos = self.neighbours[self.i];
@@ -250,6 +264,7 @@ impl<'a, T: 'a> Iterator for Neighbours2D<'a, T> {
     }
 }
 
+#[must_use = "iterators are lazy and do nothing unless consumed"]
 pub struct NeighboursMut2D<'a, T: 'a> {
     array2d: &'a mut Vec<Vec<T>>,
     neighbours: Vec<Vec2>,
@@ -270,6 +285,7 @@ impl<'a, T: 'a> NeighboursMut2D<'a, T> {
 impl<'a, T: 'a> Iterator for NeighboursMut2D<'a, T> {
     type Item = (&'a mut T, Vec2);
 
+    #[inline]
     fn next(&mut self) -> Option<Self::Item> {
         while self.i < self.neighbours.len() {
             let pos = self.neighbours[self.i];
@@ -297,7 +313,7 @@ impl<'a, T: 'a> Iterator for NeighboursMut2D<'a, T> {
 //
 // FlatIter2D
 //
-#[inline]
+#[inline(always)]
 fn flat_iter_next_pos<T>(array2d: &Vec<Vec<T>>, mut pos: Vec2) -> Option<Vec2> {
     while pos.y < array2d.height() {
         if pos.x < array2d.width_at(pos.y)? {
@@ -311,6 +327,7 @@ fn flat_iter_next_pos<T>(array2d: &Vec<Vec<T>>, mut pos: Vec2) -> Option<Vec2> {
     Some(pos)
 }
 
+#[must_use = "iterators are lazy and do nothing unless consumed"]
 pub struct FlatIter2D<'a, T: 'a> {
     array2d: &'a Vec<Vec<T>>,
     pos: Vec2,
@@ -329,6 +346,7 @@ impl<'a, T: 'a> FlatIter2D<'a, T> {
 impl<'a, T: 'a> Iterator for FlatIter2D<'a, T> {
     type Item = (&'a T, Vec2);
 
+    #[inline]
     fn next(&mut self) -> Option<Self::Item> {
         self.pos = flat_iter_next_pos(self.array2d, self.pos)?;
 
@@ -338,6 +356,7 @@ impl<'a, T: 'a> Iterator for FlatIter2D<'a, T> {
     }
 }
 
+#[must_use = "iterators are lazy and do nothing unless consumed"]
 pub struct FlatIterMut2D<'a, T: 'a> {
     array2d: &'a mut Vec<Vec<T>>,
     pos: Vec2,
@@ -356,6 +375,7 @@ impl<'a, T: 'a> FlatIterMut2D<'a, T> {
 impl<'a, T: 'a> Iterator for FlatIterMut2D<'a, T> {
     type Item = (&'a mut T, Vec2);
 
+    #[inline]
     fn next(&mut self) -> Option<Self::Item> {
         self.pos = flat_iter_next_pos(self.array2d, self.pos)?;
 

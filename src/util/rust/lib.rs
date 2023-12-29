@@ -1,3 +1,4 @@
+#![feature(iter_collect_into)]
 #![allow(incomplete_features)]
 
 pub mod math;

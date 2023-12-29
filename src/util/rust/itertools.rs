@@ -1,5 +1,7 @@
 use std::fmt::Debug;
+use num::traits::NumAssign;
 
+#[must_use = "iterators are lazy and do nothing unless consumed"]
 pub struct InspectDebug<I: Iterator> {
     iter: I,
 }
@@ -14,12 +16,13 @@ impl<I: Iterator> InspectDebug<I> {
 }
 
 impl<I> Iterator for InspectDebug<I>
-where
-    I: Iterator,
-    I::Item: Debug,
+    where
+        I: Iterator,
+        I::Item: Debug,
 {
     type Item = I::Item;
 
+    #[inline]
     fn next(&mut self) -> Option<Self::Item> {
         let elem = self.iter.next()?;
         dbg!(&elem);
@@ -28,14 +31,52 @@ where
 }
 
 impl<I> DoubleEndedIterator for InspectDebug<I>
-where
-    I: DoubleEndedIterator,
-    I::Item: Debug,
+    where
+        I: DoubleEndedIterator,
+        I::Item: Debug,
 {
+    #[inline]
     fn next_back(&mut self) -> Option<Self::Item> {
         let elem = self.iter.next_back()?;
         dbg!(&elem);
         Some(elem)
+    }
+}
+
+pub struct PrefixSum<I>
+    where
+        I: Iterator,
+        I::Item: NumAssign + Copy,
+{
+    iter: I,
+    acc: I::Item,
+}
+
+impl<I> PrefixSum<I>
+    where
+        I: Iterator,
+        I::Item: NumAssign + Copy,
+{
+    #[inline]
+    fn new(iter: I) -> Self {
+        Self {
+            iter,
+            acc: num::zero(),
+        }
+    }
+}
+
+impl<I> Iterator for PrefixSum<I>
+    where
+        I: Iterator,
+        I::Item: NumAssign + Copy,
+{
+    type Item = I::Item;
+
+    #[inline]
+    fn next(&mut self) -> Option<Self::Item> {
+        self.acc += self.iter.next()?;
+        Some(self.acc)
     }
 }
 
@@ -47,8 +88,14 @@ pub struct FirstLast<I: Clone> {
 
 pub trait AdventItertools: Iterator {
     fn inspect_dbg(self) -> InspectDebug<Self>
-        where Self: Sized,
-              Self::Item: Debug;
+        where
+            Self: Sized,
+            Self::Item: Debug;
+
+    fn prefix_sum(self) -> PrefixSum<Self>
+        where
+            Self: Sized,
+            Self::Item: NumAssign + Copy;
 
     fn first_last(&mut self) -> Option<FirstLast<Self::Item>>
         where Self::Item: Clone;
@@ -57,12 +104,22 @@ pub trait AdventItertools: Iterator {
 impl<I> AdventItertools for I
     where I: Iterator
 {
+    #[inline]
     fn inspect_dbg(self) -> InspectDebug<Self>
-    where
-        Self: Sized,
-        Self::Item: Debug,
+        where
+            Self: Sized,
+            Self::Item: Debug,
     {
         InspectDebug::new(self)
+    }
+
+    #[inline]
+    fn prefix_sum(self) -> PrefixSum<Self>
+        where
+            Self: Sized,
+            Self::Item: NumAssign + Copy,
+    {
+        PrefixSum::new(self)
     }
 
     fn first_last(&mut self) -> Option<FirstLast<Self::Item>>

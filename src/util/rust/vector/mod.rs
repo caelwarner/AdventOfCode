@@ -17,19 +17,23 @@ impl Vec2 {
         Vec2 { x, y }
     }
 
+    #[inline]
     pub fn abs(&self) -> Self {
         Vec2::new(self.x.abs(), self.y.abs())
     }
 
+    #[inline]
     pub fn clamp(&self, min: i32, max: i32) -> Self {
         Vec2::new(self.x.clamp(min, max), self.y.clamp(min, max))
     }
 
+    #[inline]
     pub fn distance(&self, from: &Vec2) -> i32 {
         let difference = (from - self).abs();
         difference.x + difference.y
     }
 
+    #[inline]
     pub fn offset(&self, x: i32, y: i32) -> Self {
         Vec2::new(self.x + x, self.y + y)
     }
@@ -49,18 +53,22 @@ impl Vec2 {
         ]
     }
 
+    #[inline]
     pub fn n_left(&self, n: i32) -> Self {
         self.offset(-n, 0)
     }
 
+    #[inline]
     pub fn n_right(&self, n: i32) -> Self {
         self.offset(n, 0)
     }
 
+    #[inline]
     pub fn n_up(&self, n: i32) -> Self {
         self.offset(0, -n)
     }
 
+    #[inline]
     pub fn n_down(&self, n: i32) -> Self {
         self.offset(0, n)
     }
