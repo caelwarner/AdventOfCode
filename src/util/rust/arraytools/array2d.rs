@@ -261,7 +261,7 @@ impl<'a, T: 'a> Array2D<'a, T> for Vec<Vec<T>> {
     {
         match AbsoluteRotation::from(rotate) {
             AbsoluteRotation::R90 => {
-                if into.uheight() < self.uwidth() {
+                if into.height() < self.width() {
                     panic!("array2d into has invalid height dimension");
                 }
 
@@ -271,7 +271,7 @@ impl<'a, T: 'a> Array2D<'a, T> for Vec<Vec<T>> {
                 }
             }
             AbsoluteRotation::R180 => {
-                if into.uheight() < self.uheight() {
+                if into.height() < self.height() {
                     panic!("array2d into has invalid height dimension");
                 }
 
@@ -279,19 +279,16 @@ impl<'a, T: 'a> Array2D<'a, T> for Vec<Vec<T>> {
                     into[y].clear();
                     self.row(y).cloned().rev().collect_into(&mut into[y]);
                 }
-
-                (0..self.height())
-                    .rev()
-                    .map(|y| self.row(y).cloned().rev().collect_vec())
-                    .collect_vec();
-                todo!();
             }
             AbsoluteRotation::R270 => {
-                (0..self.width())
-                    .rev()
-                    .map(|x| self.col(x).cloned().collect_vec())
-                    .collect_vec();
-                todo!();
+                if into.height() < self.width() {
+                    panic!("array2d into has invalid height dimension");
+                }
+
+                for x in (0..self.uwidth()).rev() {
+                    into[x].clear();
+                    self.col(x).cloned().collect_into(&mut into[x]);
+                }
             }
         }
     }
