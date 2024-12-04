@@ -1,0 +1,35 @@
+name: advent-of-code
+version: 0.1.0.0
+author: Cael Warner
+copyright: 2024 Cael Warner
+
+dependencies:
+  - base >= 4.7 && < 5
+  - extra
+  - containers
+  - multiset
+  - clock
+  - deepseq
+
+shared-executable-dependencies: &shared-deps
+  - advent-of-code
+
+ghc-options:
+  -Wall
+  -Wcompat
+  -Widentities
+  -Wincomplete-record-updates
+  -Wincomplete-uni-patterns
+  -Wmissing-export-lists
+  -Wmissing-home-modules
+  -Wpartial-fields
+  -Wredundant-constraints
+
+library:
+  source-dirs: src/util/haskell
+
+executables:
+  historian_hysteria:
+    main: HistorianHysteria.hs
+    source-dirs: src/twentytwentyfour/one
+    dependencies: *shared-deps

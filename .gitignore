@@ -2,6 +2,7 @@
 /out/
 /.idea/
 /target/
+/.stack-work
 
 Cargo.lock
 output.dot
