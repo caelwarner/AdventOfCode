@@ -1,5 +1,4 @@
 module ListTools (count, differences, filterFirst, removeAt) where
-import Data.IntMap (split)
 
 count :: Eq a => a -> [a] -> Int
 count x xs = length (filter (== x) xs)

@@ -10,6 +10,7 @@ dependencies:
   - multiset
   - clock
   - deepseq
+  - megaparsec
 
 shared-executable-dependencies: &shared-deps
   - advent-of-code
@@ -29,11 +30,15 @@ library:
   source-dirs: src/util/haskell
 
 executables:
-  historian_hysteria:
+  historian-hysteria:
     main: HistorianHysteria.hs
     source-dirs: src/twentytwentyfour/one
     dependencies: *shared-deps
-  red_nosed_reindeer:
+  red-nosed-reindeer:
     main: RedNosedReindeer.hs
     source-dirs: src/twentytwentyfour/two
+    dependencies: *shared-deps
+  mull-it-over:
+    main: MullItOver.hs
+    source-dirs: src/twentytwentyfour/three
     dependencies: *shared-deps

@@ -1,4 +1,3 @@
-{-# LANGUAGE InstanceSigs #-}
 module Run (Part(..), run) where
 
 import System.Clock
@@ -7,7 +6,6 @@ import Control.DeepSeq
 data Part = PartOne | PartTwo
 
 instance Show Part where
-    show :: Part -> String
     show PartOne = "Part 1"
     show PartTwo = "Part 2"
 
