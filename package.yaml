@@ -33,3 +33,7 @@ executables:
     main: HistorianHysteria.hs
     source-dirs: src/twentytwentyfour/one
     dependencies: *shared-deps
+  red_nosed_reindeer:
+    main: RedNosedReindeer.hs
+    source-dirs: src/twentytwentyfour/two
+    dependencies: *shared-deps

@@ -47,3 +47,20 @@ executable historian_hysteria
     , extra
     , multiset
   default-language: Haskell2010
+
+executable red_nosed_reindeer
+  main-is: RedNosedReindeer.hs
+  other-modules:
+      Paths_advent_of_code
+  hs-source-dirs:
+      src/twentytwentyfour/two
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
+  build-depends:
+      advent-of-code
+    , base >=4.7 && <5
+    , clock
+    , containers
+    , deepseq
+    , extra
+    , multiset
+  default-language: Haskell2010
