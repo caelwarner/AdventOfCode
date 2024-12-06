@@ -1,5 +1,6 @@
 module ListTools (count, differences, filterFirst, removeAt, rotateLeft, countInfix) where
-import Data.List
+
+import Data.List (isPrefixOf, tails)
 
 count :: Eq a => a -> [a] -> Int
 count x xs = length (filter (== x) xs)

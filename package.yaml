@@ -46,3 +46,7 @@ executables:
     main: CeresSearch.hs
     source-dirs: src/twentytwentyfour/four
     dependencies: *shared-deps
+  print-queue:
+    main: PrintQueue.hs
+    source-dirs: src/twentytwentyfour/five
+    dependencies: *shared-deps
