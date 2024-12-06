@@ -42,3 +42,7 @@ executables:
     main: MullItOver.hs
     source-dirs: src/twentytwentyfour/three
     dependencies: *shared-deps
+  ceres-search:
+    main: CeresSearch.hs
+    source-dirs: src/twentytwentyfour/four
+    dependencies: *shared-deps

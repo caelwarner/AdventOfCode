@@ -32,6 +32,24 @@ library
     , multiset
   default-language: Haskell2010
 
+executable ceres-search
+  main-is: CeresSearch.hs
+  other-modules:
+      Paths_advent_of_code
+  hs-source-dirs:
+      src/twentytwentyfour/four
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
+  build-depends:
+      advent-of-code
+    , base >=4.7 && <5
+    , clock
+    , containers
+    , deepseq
+    , extra
+    , megaparsec
+    , multiset
+  default-language: Haskell2010
+
 executable historian-hysteria
   main-is: HistorianHysteria.hs
   other-modules:
