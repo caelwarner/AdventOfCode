@@ -55,3 +55,7 @@ executables:
     main: GuardGallivant.hs
     source-dirs: src/twentytwentyfour/six
     dependencies: *shared-deps
+  bridge-repair:
+    main: BridgeRepair.hs
+    source-dirs: src/twentytwentyfour/seven
+    dependencies: *shared-deps
