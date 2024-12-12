@@ -11,6 +11,7 @@ dependencies:
   - clock
   - deepseq
   - megaparsec
+  - array
 
 shared-executable-dependencies: &shared-deps
   - advent-of-code
@@ -49,4 +50,8 @@ executables:
   print-queue:
     main: PrintQueue.hs
     source-dirs: src/twentytwentyfour/five
+    dependencies: *shared-deps
+  guard-gallivant:
+    main: GuardGallivant.hs
+    source-dirs: src/twentytwentyfour/six
     dependencies: *shared-deps
