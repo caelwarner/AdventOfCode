@@ -12,8 +12,8 @@ elemIndexes2d e list2d = do
     (x, a) <- zip [0..] row
 
     guard (a == e)
-    return $ Vec2d x y
+    return $ V2 x y
 
 elemIndex2d :: (Eq a) => a -> [[a]] -> Maybe Vec2d
-elemIndex2d e list2d = fmap (\(y, Just (x, _)) -> Vec2d x y) $ find (\(_, row) -> isJust row) $ fmap elemInRow $ zip [0..] list2d
+elemIndex2d e list2d = fmap (\(y, Just (x, _)) -> V2 x y) $ find (\(_, row) -> isJust row) $ fmap elemInRow $ zip [0..] list2d
     where elemInRow (y, row) = (y, find (\(_, a) -> a == e) (zip [0..] row))

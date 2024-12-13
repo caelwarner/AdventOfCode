@@ -1,4 +1,7 @@
-module Read (Year(..), Day(..), inputAsStr, inputAsStrList) where
+module Read (Year(..), Day(..), inputAsStr, inputAsStrList, inputAsArray) where
+
+import Vec2d
+import Data.Array.Unboxed
 
 newtype Year = Year Int
 instance Show Year where
@@ -43,3 +46,11 @@ inputAsStr year day = readFile $ getFilePath year day
 
 inputAsStrList :: Year -> Day -> IO [String]
 inputAsStrList year day = lines <$> readFile (getFilePath year day)
+
+inputAsArray :: Year -> Day -> IO (UArray Vec2d Char)
+inputAsArray year day = do
+    input <- inputAsStrList year day
+    let w = length $ head input
+    let h = length input
+
+    return $ listArray (boundsForSize w h) $ concat input

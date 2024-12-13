@@ -167,3 +167,22 @@ executable red-nosed-reindeer
     , megaparsec
     , multiset
   default-language: Haskell2010
+
+executable resonant-collinearity
+  main-is: ResonantCollinearity.hs
+  other-modules:
+      Paths_advent_of_code
+  hs-source-dirs:
+      src/twentytwentyfour/eight
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
+  build-depends:
+      advent-of-code
+    , array
+    , base >=4.7 && <5
+    , clock
+    , containers
+    , deepseq
+    , extra
+    , megaparsec
+    , multiset
+  default-language: Haskell2010
