@@ -63,3 +63,7 @@ executables:
     main: ResonantCollinearity.hs
     source-dirs: src/twentytwentyfour/eight
     dependencies: *shared-deps
+  disk-fragmenter:
+    main: DiskFragmenter.hs
+    source-dirs: src/twentytwentyfour/nine
+    dependencies: *shared-deps
