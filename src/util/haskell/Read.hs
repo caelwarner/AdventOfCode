@@ -1,7 +1,8 @@
-module Read (Year(..), Day(..), inputAsStr, inputAsStrList, inputAsArray) where
+module Read (Year(..), Day(..), inputAsStr, inputAsStrList, inputAsArray, inputAsIntArray) where
 
 import Vec2d
 import Data.Array.Unboxed
+import Data.Char
 
 newtype Year = Year Int
 instance Show Year where
@@ -54,3 +55,6 @@ inputAsArray year day = do
     let h = length input
 
     return $ listArray (boundsForSize w h) $ concat input
+
+inputAsIntArray :: Year -> Day -> IO (UArray Vec2d Int)
+inputAsIntArray year day = amap digitToInt <$> inputAsArray year day

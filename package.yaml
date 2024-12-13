@@ -67,3 +67,7 @@ executables:
     main: DiskFragmenter.hs
     source-dirs: src/twentytwentyfour/nine
     dependencies: *shared-deps
+  hoof-it:
+    main: HoofIt.hs
+    source-dirs: src/twentytwentyfour/ten
+    dependencies: *shared-deps
