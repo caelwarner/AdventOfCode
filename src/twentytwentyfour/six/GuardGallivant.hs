@@ -21,7 +21,7 @@ step d g walls =
     case walls !? (g + d) of
         Nothing -> [(g, d)]
         Just False -> (g, d):step d (g + d) walls
-        Just True -> (g, d):step (rotateRight d) g walls
+        Just True -> (g, d):step (rotateR d) g walls
 
 doesLoop :: [(Vec2d, Vec2d)] -> [(Vec2d, Vec2d)] -> Bool
 doesLoop (_:hare:x1) (tortoise:x2) = (hare == tortoise) || doesLoop x1 x2

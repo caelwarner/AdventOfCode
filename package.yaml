@@ -75,3 +75,7 @@ executables:
     main: PlutonianPebbles.hs
     source-dirs: src/twentytwentyfour/eleven
     dependencies: *shared-deps
+  garden-groups:
+    main: GardenGroups.hs
+    source-dirs: src/twentytwentyfour/twelve
+    dependencies: *shared-deps

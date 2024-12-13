@@ -1,5 +1,5 @@
 {-# LANGUAGE DeriveGeneric #-}
-module Vec2d (Vec2d(..), north, south, east, west, rotateLeft, rotateRight, boundsForSize, (|*), (*|)) where
+module Vec2d (Vec2d(..), north, south, east, west, northEast, northWest, southEast, southWest, cardinal, around, rotateL, rotateR, rotateByR, boundsForSize, (|*), (*|)) where
 
 import Data.Ix
 import Control.DeepSeq
@@ -19,11 +19,38 @@ east = V2 (-1) 0
 west :: Vec2d
 west = V2 1 0
 
-rotateLeft :: Vec2d -> Vec2d
-rotateLeft (V2 x y) = V2 y (-x)
+northEast :: Vec2d
+northEast = V2 (-1) (-1)
 
-rotateRight :: Vec2d -> Vec2d
-rotateRight (V2 x y) = V2 (-y) x
+northWest :: Vec2d
+northWest = V2 1 (-1)
+
+southEast :: Vec2d
+southEast = V2 (-1) 1
+
+southWest :: Vec2d
+southWest = V2 1 1
+
+cardinal :: [Vec2d]
+cardinal = [north, south, east, west]
+
+around :: Vec2d -> [Vec2d]
+around v = fmap (+v) cardinal
+
+rotateL :: Vec2d -> Vec2d
+rotateL (V2 x y) = V2 y (-x)
+
+rotateR :: Vec2d -> Vec2d
+rotateR (V2 x y) = V2 (-y) x
+
+rotateByR :: Int -> Vec2d -> Vec2d
+rotateByR i v = rotate' (i `mod` 4)
+    where
+        rotate' 0 = v
+        rotate' 1 = rotateR v
+        rotate' 2 = negate v
+        rotate' 3 = rotateL v
+        rotate' _ = error "number of rotations cannot be higher than 3"
 
 boundsForSize :: Int -> Int -> (Vec2d, Vec2d)
 boundsForSize w h = (V2 0 0, V2 (w - 1) (h - 1))
