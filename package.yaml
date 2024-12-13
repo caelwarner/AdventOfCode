@@ -71,3 +71,7 @@ executables:
     main: HoofIt.hs
     source-dirs: src/twentytwentyfour/ten
     dependencies: *shared-deps
+  plutonian-pebbles:
+    main: PlutonianPebbles.hs
+    source-dirs: src/twentytwentyfour/eleven
+    dependencies: *shared-deps

@@ -168,6 +168,25 @@ executable mull-it-over
     , multiset
   default-language: Haskell2010
 
+executable plutonian-pebbles
+  main-is: PlutonianPebbles.hs
+  other-modules:
+      Paths_advent_of_code
+  hs-source-dirs:
+      src/twentytwentyfour/eleven
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
+  build-depends:
+      advent-of-code
+    , array
+    , base >=4.7 && <5
+    , clock
+    , containers
+    , deepseq
+    , extra
+    , megaparsec
+    , multiset
+  default-language: Haskell2010
+
 executable print-queue
   main-is: PrintQueue.hs
   other-modules:
