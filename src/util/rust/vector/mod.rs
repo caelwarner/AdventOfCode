@@ -1,3 +1,5 @@
+use crate::arraytools::Array2D;
+
 mod cmp;
 mod convert;
 mod ops;
@@ -118,6 +120,10 @@ impl Vec2 {
             self.offset(-1, 1),
             self.offset(1, 1),
         ]
+    }
+    
+    pub fn in_bounds<T>(&self, array2d: &Vec<Vec<T>>) -> bool {
+        self.x >= 0 && self.x < array2d.width() && self.y >= 0 && self.y < array2d.height()
     }
 }
 

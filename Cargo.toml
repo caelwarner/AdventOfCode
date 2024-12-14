@@ -169,3 +169,7 @@ path = "src/twentytwentythree/fourteen/parabolic_reflector_dish.rs"
 [[bin]]
 name = "lens_library"
 path = "src/twentytwentythree/fifteen/lens_library.rs"
+
+[[bin]]
+name = "the_floor_will_be_lava"
+path = "src/twentytwentythree/sixteen/the_floor_will_be_lava.rs"
