@@ -12,6 +12,7 @@ dependencies:
   - deepseq
   - megaparsec
   - array
+  - matrix
 
 shared-executable-dependencies: &shared-deps
   - advent-of-code
@@ -78,4 +79,8 @@ executables:
   garden-groups:
     main: GardenGroups.hs
     source-dirs: src/twentytwentyfour/twelve
+    dependencies: *shared-deps
+  claw-contraption:
+    main: ClawContraption.hs
+    source-dirs: src/twentytwentyfour/thirteen
     dependencies: *shared-deps

@@ -16,6 +16,7 @@ library
       IterTools
       List2d
       ListTools
+      Parse
       Read
       Run
       Vec2d
@@ -31,6 +32,7 @@ library
     , containers
     , deepseq
     , extra
+    , matrix
     , megaparsec
     , multiset
   default-language: Haskell2010
@@ -50,6 +52,7 @@ executable bridge-repair
     , containers
     , deepseq
     , extra
+    , matrix
     , megaparsec
     , multiset
   default-language: Haskell2010
@@ -69,6 +72,27 @@ executable ceres-search
     , containers
     , deepseq
     , extra
+    , matrix
+    , megaparsec
+    , multiset
+  default-language: Haskell2010
+
+executable claw-contraption
+  main-is: ClawContraption.hs
+  other-modules:
+      Paths_advent_of_code
+  hs-source-dirs:
+      src/twentytwentyfour/thirteen
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
+  build-depends:
+      advent-of-code
+    , array
+    , base >=4.7 && <5
+    , clock
+    , containers
+    , deepseq
+    , extra
+    , matrix
     , megaparsec
     , multiset
   default-language: Haskell2010
@@ -88,6 +112,7 @@ executable disk-fragmenter
     , containers
     , deepseq
     , extra
+    , matrix
     , megaparsec
     , multiset
   default-language: Haskell2010
@@ -107,6 +132,7 @@ executable garden-groups
     , containers
     , deepseq
     , extra
+    , matrix
     , megaparsec
     , multiset
   default-language: Haskell2010
@@ -126,6 +152,7 @@ executable guard-gallivant
     , containers
     , deepseq
     , extra
+    , matrix
     , megaparsec
     , multiset
   default-language: Haskell2010
@@ -145,6 +172,7 @@ executable historian-hysteria
     , containers
     , deepseq
     , extra
+    , matrix
     , megaparsec
     , multiset
   default-language: Haskell2010
@@ -164,6 +192,7 @@ executable hoof-it
     , containers
     , deepseq
     , extra
+    , matrix
     , megaparsec
     , multiset
   default-language: Haskell2010
@@ -183,6 +212,7 @@ executable mull-it-over
     , containers
     , deepseq
     , extra
+    , matrix
     , megaparsec
     , multiset
   default-language: Haskell2010
@@ -202,6 +232,7 @@ executable plutonian-pebbles
     , containers
     , deepseq
     , extra
+    , matrix
     , megaparsec
     , multiset
   default-language: Haskell2010
@@ -221,6 +252,7 @@ executable print-queue
     , containers
     , deepseq
     , extra
+    , matrix
     , megaparsec
     , multiset
   default-language: Haskell2010
@@ -240,6 +272,7 @@ executable red-nosed-reindeer
     , containers
     , deepseq
     , extra
+    , matrix
     , megaparsec
     , multiset
   default-language: Haskell2010
@@ -259,6 +292,7 @@ executable resonant-collinearity
     , containers
     , deepseq
     , extra
+    , matrix
     , megaparsec
     , multiset
   default-language: Haskell2010
