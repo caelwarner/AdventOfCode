@@ -296,3 +296,23 @@ executable resonant-collinearity
     , megaparsec
     , multiset
   default-language: Haskell2010
+
+executable restroom-redoubt
+  main-is: RestroomRedoubt.hs
+  other-modules:
+      Paths_advent_of_code
+  hs-source-dirs:
+      src/twentytwentyfour/fourteen
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
+  build-depends:
+      advent-of-code
+    , array
+    , base >=4.7 && <5
+    , clock
+    , containers
+    , deepseq
+    , extra
+    , matrix
+    , megaparsec
+    , multiset
+  default-language: Haskell2010

@@ -1,5 +1,5 @@
 {-# LANGUAGE DeriveGeneric #-}
-module Vec2d (Vec2d(..), north, south, east, west, northEast, northWest, southEast, southWest, cardinal, around, rotateL, rotateR, rotateByR, boundsForSize, (|*), (*|)) where
+module Vec2d (Vec2d(..), north, south, east, west, northEast, northWest, southEast, southWest, cardinal, around, rotateL, rotateR, rotateByR, boundsForSize, (|*), (*|), (|%), (%|), (%)) where
 
 import Data.Ix
 import Control.DeepSeq
@@ -60,6 +60,15 @@ boundsForSize w h = (V2 0 0, V2 (w - 1) (h - 1))
 
 (*|) :: Vec2d -> Int -> Vec2d
 (*|) (V2 x y) a = V2 (x * a) (y * a)
+
+(|%) :: Int -> Vec2d -> Vec2d
+(|%) a (V2 x y) = V2 (x `mod` a) (y `mod` a)
+
+(%|) :: Vec2d -> Int -> Vec2d
+(%|) (V2 x y) a = V2 (x `mod` a) (y `mod` a)
+
+(%) :: Vec2d -> Vec2d -> Vec2d
+(%) (V2 ax ay) (V2 bx by) = V2 (ax `mod` bx) (ay `mod` by)
 
 instance Num Vec2d where
     (+) (V2 ax ay) (V2 bx by) = V2 (ax + bx) (ay + by)

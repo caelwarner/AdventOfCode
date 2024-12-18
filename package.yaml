@@ -84,3 +84,7 @@ executables:
     main: ClawContraption.hs
     source-dirs: src/twentytwentyfour/thirteen
     dependencies: *shared-deps
+  restroom-redoubt:
+    main: RestroomRedoubt.hs
+    source-dirs: src/twentytwentyfour/fourteen
+    dependencies: *shared-deps
