@@ -1,6 +1,6 @@
 module Read (Year(..), Day(..), inputAsStr, inputAsStrList, inputAsArray, inputAsIntArray) where
 
-import Vec2d
+import Vec2
 import Data.Array.Unboxed
 import Data.Char
 
@@ -43,12 +43,12 @@ getFilePath :: Year -> Day -> String
 getFilePath year day = "src/" ++ show year ++ "/" ++ show day ++ "/input.txt"
 
 inputAsStr :: Year -> Day -> IO String
-inputAsStr year day = readFile $ getFilePath year day
+inputAsStr year day = filter (/= 'r') <$> readFile (getFilePath year day)
 
 inputAsStrList :: Year -> Day -> IO [String]
-inputAsStrList year day = lines <$> readFile (getFilePath year day)
+inputAsStrList year day = lines . filter (/= '\r') <$> readFile (getFilePath year day)
 
-inputAsArray :: Year -> Day -> IO (UArray Vec2d Char)
+inputAsArray :: Year -> Day -> IO (UArray Vec2 Char)
 inputAsArray year day = do
     input <- inputAsStrList year day
     let w = length $ head input
@@ -56,5 +56,5 @@ inputAsArray year day = do
 
     return $ listArray (boundsForSize w h) $ concat input
 
-inputAsIntArray :: Year -> Day -> IO (UArray Vec2d Int)
+inputAsIntArray :: Year -> Day -> IO (UArray Vec2 Int)
 inputAsIntArray year day = amap digitToInt <$> inputAsArray year day

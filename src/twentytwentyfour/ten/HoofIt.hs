@@ -2,11 +2,11 @@ module Main (main) where
 
 import Read
 import Run
-import Vec2d
+import Vec2
 import Data.Array.Unboxed
 import Data.List.Extra (nubOrd)
 
-trailhead :: Vec2d -> Int -> UArray Vec2d Int -> [Vec2d]
+trailhead :: Vec2 -> Int -> UArray Vec2 Int -> [Vec2]
 trailhead pos prev grid
     | not $ inRange (bounds grid) pos = []
     | (prev + 1) /= grid ! pos = []

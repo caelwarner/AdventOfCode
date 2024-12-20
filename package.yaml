@@ -13,6 +13,7 @@ dependencies:
   - megaparsec
   - array
   - matrix
+  - split
 
 shared-executable-dependencies: &shared-deps
   - advent-of-code
@@ -87,4 +88,8 @@ executables:
   restroom-redoubt:
     main: RestroomRedoubt.hs
     source-dirs: src/twentytwentyfour/fourteen
+    dependencies: *shared-deps
+  warehouse-woes:
+    main: WarehouseWoes.hs
+    source-dirs: src/twentytwentyfour/fifteen
     dependencies: *shared-deps

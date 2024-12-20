@@ -1,6 +1,6 @@
 cabal-version: 1.12
 
--- This file has been generated from package.yaml by hpack version 0.36.0.
+-- This file has been generated from package.yaml by hpack version 0.37.0.
 --
 -- see: https://github.com/sol/hpack
 
@@ -19,7 +19,7 @@ library
       Parse
       Read
       Run
-      Vec2d
+      Vec2
   other-modules:
       Paths_advent_of_code
   hs-source-dirs:
@@ -35,6 +35,7 @@ library
     , matrix
     , megaparsec
     , multiset
+    , split
   default-language: Haskell2010
 
 executable bridge-repair
@@ -55,6 +56,7 @@ executable bridge-repair
     , matrix
     , megaparsec
     , multiset
+    , split
   default-language: Haskell2010
 
 executable ceres-search
@@ -75,6 +77,7 @@ executable ceres-search
     , matrix
     , megaparsec
     , multiset
+    , split
   default-language: Haskell2010
 
 executable claw-contraption
@@ -95,6 +98,7 @@ executable claw-contraption
     , matrix
     , megaparsec
     , multiset
+    , split
   default-language: Haskell2010
 
 executable disk-fragmenter
@@ -115,6 +119,7 @@ executable disk-fragmenter
     , matrix
     , megaparsec
     , multiset
+    , split
   default-language: Haskell2010
 
 executable garden-groups
@@ -135,6 +140,7 @@ executable garden-groups
     , matrix
     , megaparsec
     , multiset
+    , split
   default-language: Haskell2010
 
 executable guard-gallivant
@@ -155,6 +161,7 @@ executable guard-gallivant
     , matrix
     , megaparsec
     , multiset
+    , split
   default-language: Haskell2010
 
 executable historian-hysteria
@@ -175,6 +182,7 @@ executable historian-hysteria
     , matrix
     , megaparsec
     , multiset
+    , split
   default-language: Haskell2010
 
 executable hoof-it
@@ -195,6 +203,7 @@ executable hoof-it
     , matrix
     , megaparsec
     , multiset
+    , split
   default-language: Haskell2010
 
 executable mull-it-over
@@ -215,6 +224,7 @@ executable mull-it-over
     , matrix
     , megaparsec
     , multiset
+    , split
   default-language: Haskell2010
 
 executable plutonian-pebbles
@@ -235,6 +245,7 @@ executable plutonian-pebbles
     , matrix
     , megaparsec
     , multiset
+    , split
   default-language: Haskell2010
 
 executable print-queue
@@ -255,6 +266,7 @@ executable print-queue
     , matrix
     , megaparsec
     , multiset
+    , split
   default-language: Haskell2010
 
 executable red-nosed-reindeer
@@ -275,6 +287,7 @@ executable red-nosed-reindeer
     , matrix
     , megaparsec
     , multiset
+    , split
   default-language: Haskell2010
 
 executable resonant-collinearity
@@ -295,6 +308,7 @@ executable resonant-collinearity
     , matrix
     , megaparsec
     , multiset
+    , split
   default-language: Haskell2010
 
 executable restroom-redoubt
@@ -315,4 +329,26 @@ executable restroom-redoubt
     , matrix
     , megaparsec
     , multiset
+    , split
+  default-language: Haskell2010
+
+executable warehouse-woes
+  main-is: WarehouseWoes.hs
+  other-modules:
+      Paths_advent_of_code
+  hs-source-dirs:
+      src/twentytwentyfour/fifteen
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
+  build-depends:
+      advent-of-code
+    , array
+    , base >=4.7 && <5
+    , clock
+    , containers
+    , deepseq
+    , extra
+    , matrix
+    , megaparsec
+    , multiset
+    , split
   default-language: Haskell2010

@@ -1,49 +1,49 @@
 {-# LANGUAGE DeriveGeneric #-}
-module Vec2d (Vec2d(..), north, south, east, west, northEast, northWest, southEast, southWest, cardinal, around, rotateL, rotateR, rotateByR, boundsForSize, (|*), (*|), (|%), (%|), (%)) where
+module Vec2 (Vec2(..), north, south, east, west, northEast, northWest, southEast, southWest, cardinal, around, rotateL, rotateR, rotateByR, boundsForSize, isVertical, isHorizontal, (|*), (*|), (|%), (%|), (%)) where
 
 import Data.Ix
 import Control.DeepSeq
 import GHC.Generics
 
-data Vec2d = V2 Int Int deriving (Eq, Ord, Generic)
+data Vec2 = V2 Int Int deriving (Eq, Ord, Generic)
 
-north :: Vec2d
+north :: Vec2
 north = V2 0 (-1)
 
-south :: Vec2d
+south :: Vec2
 south = V2 0 1
 
-east :: Vec2d
-east = V2 (-1) 0
+east :: Vec2
+east = V2 1 0
 
-west :: Vec2d
-west = V2 1 0
+west :: Vec2
+west = V2 (-1) 0
 
-northEast :: Vec2d
-northEast = V2 (-1) (-1)
+northEast :: Vec2
+northEast = V2 1 (-1)
 
-northWest :: Vec2d
-northWest = V2 1 (-1)
+northWest :: Vec2
+northWest = V2 (-1) (-1)
 
-southEast :: Vec2d
-southEast = V2 (-1) 1
+southEast :: Vec2
+southEast = V2 1 1
 
-southWest :: Vec2d
-southWest = V2 1 1
+southWest :: Vec2
+southWest = V2 (-1) 1
 
-cardinal :: [Vec2d]
+cardinal :: [Vec2]
 cardinal = [north, south, east, west]
 
-around :: Vec2d -> [Vec2d]
+around :: Vec2 -> [Vec2]
 around v = fmap (+v) cardinal
 
-rotateL :: Vec2d -> Vec2d
+rotateL :: Vec2 -> Vec2
 rotateL (V2 x y) = V2 y (-x)
 
-rotateR :: Vec2d -> Vec2d
+rotateR :: Vec2 -> Vec2
 rotateR (V2 x y) = V2 (-y) x
 
-rotateByR :: Int -> Vec2d -> Vec2d
+rotateByR :: Int -> Vec2 -> Vec2
 rotateByR i v = rotate' (i `mod` 4)
     where
         rotate' 0 = v
@@ -52,25 +52,31 @@ rotateByR i v = rotate' (i `mod` 4)
         rotate' 3 = rotateL v
         rotate' _ = error "number of rotations cannot be higher than 3"
 
-boundsForSize :: Int -> Int -> (Vec2d, Vec2d)
+boundsForSize :: Int -> Int -> (Vec2, Vec2)
 boundsForSize w h = (V2 0 0, V2 (w - 1) (h - 1))
 
-(|*) :: Int -> Vec2d -> Vec2d
+isVertical :: Vec2 -> Bool
+isVertical (V2 _ y) = y /= 0
+
+isHorizontal :: Vec2 -> Bool
+isHorizontal (V2 x _) = x /= 0
+
+(|*) :: Int -> Vec2 -> Vec2
 (|*) a (V2 x y) = V2 (x * a) (y * a)
 
-(*|) :: Vec2d -> Int -> Vec2d
+(*|) :: Vec2 -> Int -> Vec2
 (*|) (V2 x y) a = V2 (x * a) (y * a)
 
-(|%) :: Int -> Vec2d -> Vec2d
+(|%) :: Int -> Vec2 -> Vec2
 (|%) a (V2 x y) = V2 (x `mod` a) (y `mod` a)
 
-(%|) :: Vec2d -> Int -> Vec2d
+(%|) :: Vec2 -> Int -> Vec2
 (%|) (V2 x y) a = V2 (x `mod` a) (y `mod` a)
 
-(%) :: Vec2d -> Vec2d -> Vec2d
+(%) :: Vec2 -> Vec2 -> Vec2
 (%) (V2 ax ay) (V2 bx by) = V2 (ax `mod` bx) (ay `mod` by)
 
-instance Num Vec2d where
+instance Num Vec2 where
     (+) (V2 ax ay) (V2 bx by) = V2 (ax + bx) (ay + by)
     (*) (V2 ax ay) (V2 bx by) = V2 (ax * bx) (ay * by)
     abs (V2 x y) = V2 (abs x) (abs y)
@@ -78,12 +84,12 @@ instance Num Vec2d where
     fromInteger a = V2 (fromInteger a) (fromInteger a) 
     negate (V2 x y) = V2 (negate x) (negate y)
 
-instance Ix Vec2d where
+instance Ix Vec2 where
     range (V2 ax ay, V2 bx by) = [V2 x y | y <- [ay..by], x <- [ax..bx]]
     index (V2 ax ay, V2 bx _) (V2 x y) = (x - ax) + ((y - ay) * ((bx + 1) - ax))
     inRange (V2 ax ay, V2 bx by) (V2 x y) = x >= ax && x <= bx && y >= ay && y <= by
 
-instance Show Vec2d where
+instance Show Vec2 where
     show (V2 x y) = "<" ++ show x ++ " " ++ show y ++ ">"
 
-instance NFData Vec2d
+instance NFData Vec2
