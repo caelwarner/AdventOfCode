@@ -8,12 +8,12 @@ fun main() {
     println("Part 2: ${countTimesDialPasses0(Read.asStringList("src/twentytwentyfive/one/input.txt"))}")
 }
 
-fun countTimesDialAt0(input: List<String>): Int =
+private fun countTimesDialAt0(input: List<String>): Int =
     input.map { it.drop(1).toInt() * if (it.first() == 'L') -1 else 1 }
         .runningFold(50) { acc, i -> (acc + i).mod(100) }
         .count { it == 0 }
 
-fun countTimesDialPasses0(input: List<String>): Int =
+private fun countTimesDialPasses0(input: List<String>): Int =
     input.map { it.drop(1).toInt() * if (it.first() == 'L') -1 else 1 }
         .runningFold(50 to 0) {
             (pos, _), delta -> (pos + delta).let { newPos -> Pair(
