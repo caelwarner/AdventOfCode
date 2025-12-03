@@ -4,8 +4,8 @@ import java.io.File
 
 object Read {
     fun asStringList(filename: String): List<String> =
-        File(filename).readLines()
+        File("src/$filename").readLines()
 
     fun asString(filename: String): String =
-        File(filename).readText()
+        File("src/$filename").readText()
 }

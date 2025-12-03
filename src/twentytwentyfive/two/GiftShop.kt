@@ -1,10 +1,12 @@
 package twentytwentyfive.two
 
+import util.kotlin.Part
 import util.kotlin.Read
+import util.kotlin.runPart
 
 fun main() {
-    println("Part 1: ${sumOfInvalidIds(Read.asString("src/twentytwentyfive/two/input.txt"))}")
-    println("Part 2: ${sumOfInvalidIdsAdvanced(Read.asString("src/twentytwentyfive/two/input.txt"))}")
+    runPart(Part.ONE) { sumOfInvalidIds(Read.asString("twentytwentyfive/two/input.txt")) }
+    runPart(Part.TWO) { sumOfInvalidIdsAdvanced(Read.asString("twentytwentyfive/two/input.txt")) }
 }
 
 private fun sumOfInvalidIds(input: String): Long =

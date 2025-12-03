@@ -1,11 +1,13 @@
 package twentytwentyfive.one
 
+import util.kotlin.Part
 import util.kotlin.Read
+import util.kotlin.runPart
 import kotlin.math.absoluteValue
 
 fun main() {
-    println("Part 1: ${countTimesDialAt0(Read.asStringList("src/twentytwentyfive/one/input.txt"))}")
-    println("Part 2: ${countTimesDialPasses0(Read.asStringList("src/twentytwentyfive/one/input.txt"))}")
+    runPart(Part.ONE) { countTimesDialAt0(Read.asStringList("twentytwentyfive/one/input.txt")) }
+    runPart(Part.TWO) { countTimesDialPasses0(Read.asStringList("twentytwentyfive/one/input.txt")) }
 }
 
 private fun countTimesDialAt0(input: List<String>): Int =
