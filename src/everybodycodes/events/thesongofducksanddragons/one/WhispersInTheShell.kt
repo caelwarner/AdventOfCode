@@ -7,9 +7,9 @@ import kotlin.math.max
 import kotlin.math.min
 
 fun main() {
-    runPart(Part.ONE) { findOwnName(Read.asStringList("everybodycodes/one/input1.txt")) }
-    runPart(Part.TWO) { findFirstParentsName(Read.asStringList("everybodycodes/one/input2.txt")) }
-    runPart(Part.TWO) { findSecondParentsName(Read.asStringList("everybodycodes/one/input3.txt")) }
+    runPart(Part.ONE) { findOwnName(Read.asStringList("everybodycodes/events/thesongofducksanddragons/one/input1.txt")) }
+    runPart(Part.TWO) { findFirstParentsName(Read.asStringList("everybodycodes/events/thesongofducksanddragons/one/input2.txt")) }
+    runPart(Part.TWO) { findSecondParentsName(Read.asStringList("everybodycodes/events/thesongofducksanddragons/one/input3.txt")) }
 }
 
 private fun findOwnName(input: List<String>): String =
