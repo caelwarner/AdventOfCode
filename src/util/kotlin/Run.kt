@@ -4,7 +4,8 @@ import kotlin.time.measureTimedValue
 
 enum class Part(val value: Int) {
     ONE(1),
-    TWO(2)
+    TWO(2),
+    THREE(3)
 }
 
 fun <T> runPart(part: Part, f: () -> T) {

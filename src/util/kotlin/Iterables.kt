@@ -4,5 +4,4 @@ fun <A, B, C, R> List<A>.zip3(b: List<B>, c: List<C>, transform: (A, B, C) -> R)
     indices.map { transform(this[it], b[it], c[it]) }
 
 fun <T> List<List<T>>.transpose(): List<List<T>> =
-    if (this.isEmpty() || this[0].isEmpty()) emptyList()
-    else listOf(this.map { it.first() }) + this.map { it.drop(1) }.transpose()
+    this[0].indices.map { i -> this.map { it[i] } }
