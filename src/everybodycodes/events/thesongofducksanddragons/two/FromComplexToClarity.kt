@@ -7,7 +7,7 @@ import util.kotlin.runPart
 fun main() {
     runPart(Part.ONE) { solveComplexNumberProblem(Read.asString("everybodycodes/events/thesongofducksanddragons/two/input1.txt")) }
     runPart(Part.TWO) { countEngravedPoints(Read.asString("everybodycodes/events/thesongofducksanddragons/two/input2.txt"), 100) }
-    runPart(Part.TWO) { countEngravedPoints(Read.asString("everybodycodes/events/thesongofducksanddragons/two/input3.txt"), 1000) }
+    runPart(Part.THREE) { countEngravedPoints(Read.asString("everybodycodes/events/thesongofducksanddragons/two/input3.txt"), 1000) }
 }
 
 private fun solveComplexNumberProblem(input: String): String {
